@@ -3062,3 +3062,12 @@ h1, h2, h3, h4, p, li, .card-title, .card-excerpt, .contact-info-text, .detail-t
   .stepper-btn { width: 40px; }
   .stepper-input { width: 44px; }
 }
+
+
+/* ---------- Footer logo: secret 7-second hold (no menus, no text selection) ---------- */
+.secret-admin-trigger, .secret-admin-trigger * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}

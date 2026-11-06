@@ -4,7 +4,7 @@
    - products + reviews storage, language / currency
    - header + footer (injected here, so they exist in ONE place only)
    - page-to-page loading animation
-   - 5 taps on the logo => admin.html
+   - press and hold the footer logo for 7 seconds => admin.html
    Page scripts use DG.ready(fn) and listen to the "dg:rerender" event
    (fired after language / currency changes).
    ============================================================ */
@@ -337,7 +337,7 @@ function headerHtml() {
   return `
     <header class="site-header">
       <div class="container header-container">
-        <a href="index.html" class="brand-lockup secret-admin-trigger" title="DG Products">
+        <a href="index.html" class="brand-lockup" title="DG Products">
           <img data-cld="logoPng" data-w="900" alt="DG PRODUCTS Logo" class="brand-logo-img" />
           <div class="brand-text-block"><span class="brand-name">DG PRODUCTS</span></div>
         </a>
@@ -460,28 +460,31 @@ function toggleMobileMenu() {
   btn.innerHTML = icon(open ? "x" : "menu", 20);
 }
 
-/* ---------- Secret admin: 5 taps on the logo within 3 seconds ---------- */
-let logoClickTimestamps = [];
-let brandNavTimer = null;
+/* ---------- Secret admin: press and hold the FOOTER logo for 7 seconds ---------- */
+const ADMIN_HOLD_MS = 7000;
 
-function onBrandClick(e) {
-  e.preventDefault();               // so the 5 taps are not cut short by a page change
-  const now = Date.now();
-  logoClickTimestamps = logoClickTimestamps.filter(t => now - t < 3000);
-  logoClickTimestamps.push(now);
-  clearTimeout(brandNavTimer);
+function bindAdminLongPress() {
+  document.querySelectorAll(".secret-admin-trigger").forEach(el => {
+    let timer = null;
+    let fired = false;
 
-  if (logoClickTimestamps.length >= 5) {
-    logoClickTimestamps = [];
-    goTo("admin.html");
-    return;
-  }
-  if (DG.page() === "home") {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  } else {
-    // a normal single click still goes home, after a very short wait for extra taps
-    brandNavTimer = setTimeout(() => goTo("index.html"), 450);
-  }
+    const start = (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      fired = false;
+      clearTimeout(timer);
+      timer = setTimeout(() => { fired = true; goTo("admin.html"); }, ADMIN_HOLD_MS);
+    };
+    const cancel = () => clearTimeout(timer);
+
+    el.addEventListener("pointerdown", start);
+    ["pointerup", "pointerleave", "pointercancel"].forEach(t => el.addEventListener(t, cancel));
+    // stops the phone's "save image / open link" menu from popping up during the hold
+    el.addEventListener("contextmenu", e => e.preventDefault());
+    // after a successful hold, the release must not also count as a normal tap
+    el.addEventListener("click", e => {
+      if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; }
+    }, true);
+  });
 }
 
 /* ============================================================
@@ -550,7 +553,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".curr-opt-btn").forEach(btn =>
     btn.addEventListener("click", () => setCurrency(btn.getAttribute("data-curr"))));
   document.getElementById("mobile-menu-btn")?.addEventListener("click", toggleMobileMenu);
-  document.querySelectorAll(".secret-admin-trigger").forEach(el => el.addEventListener("click", onBrandClick));
+  bindAdminLongPress();
   bindPageTransitions();
 
   // side dock: tap the globe to open, pick a language / currency, it folds away again
