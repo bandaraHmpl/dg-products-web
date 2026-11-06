@@ -35,7 +35,17 @@ function renderCategoriesBar() {
       <button class="category-pill-btn ${activeFilter === t.id ? "active" : ""}" data-filter="${t.id}" role="tab" aria-selected="${activeFilter === t.id}">
         <span>${getTranslation(t.key)}</span>
         <span class="count-tag">${productsForFilter(t.id).length}</span>
-      </button>`).join("") + `</div>`;
+      </button>`).join("") + `</div>` +
+    // phones: same filters as a dropdown (the tabs are hidden by CSS on small screens)
+    `<select class="mobile-filter-select" aria-label="${getTranslation("filterAll")}">` + tabs.map(t => `
+      <option value="${t.id}" ${activeFilter === t.id ? "selected" : ""}>${getTranslation(t.key)} (${productsForFilter(t.id).length})</option>`).join("") + `</select>`;
+
+  container.querySelector(".mobile-filter-select")?.addEventListener("change", e => {
+    activeFilter = e.target.value;
+    syncShopUrl();
+    renderCategoriesBar();
+    renderProductsGrid();
+  });
 
   container.querySelectorAll(".category-pill-btn").forEach(btn => {
     btn.addEventListener("click", () => {

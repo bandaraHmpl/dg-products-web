@@ -1,0 +1,109 @@
+/* ============================================================
+   shop-responsive.css: shop.html only (load AFTER styles.css)
+   Fixes: filter tabs running off the screen, cards too tall on
+   phones, long Sinhala/Tamil text, small touch targets, and the
+   language dock covering the content.
+   ============================================================ */
+
+/* ---------- All sizes: let things shrink instead of overflow ---------- */
+#categories-bar-container { min-width: 0; max-width: 100%; }
+.shop-layout, .products-grid, .product-card, .card-body, .card-body > * { min-width: 0; }
+.card-title { overflow-wrap: anywhere; }
+.card-tag-badge { max-width: calc(100% - 104px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-body > div[style*="justify-content"] { flex-wrap: wrap; gap: 6px 10px; }
+.card-action-btn, .card-unavailable-pill { min-height: 40px; }
+
+/* ---------- Tablet ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; }
+  .shop-top-toolbar { flex-wrap: wrap; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 768px) {
+  /* toolbar: tabs on their own full-width row, item count underneath */
+  .shop-top-toolbar { flex-direction: column; align-items: stretch; gap: 12px; padding-bottom: 14px; }
+  #categories-bar-container { width: 100%; flex: 0 0 auto; }
+  .shop-section .categories-bar-compact {
+    display: flex;
+    flex-wrap: wrap;            /* every tab stays visible, no hidden sideways scrolling */
+    overflow: visible;
+    width: 100%;
+    gap: 6px;
+    padding: 6px;
+  }
+  .shop-section .category-pill-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: .88rem;
+    line-height: 1.25;
+    text-align: center;
+    white-space: normal;
+  }
+  .shop-top-toolbar .shop-active-meta { margin: 0; text-align: left; }
+
+  /* header text */
+  .shop-header-info .about-prose { font-size: .95rem; line-height: 1.6; }
+
+  /* cards: shorter picture, tighter spacing, big tap targets */
+  .products-grid { gap: 16px; }
+  .card-media-wrapper { padding-top: 68%; }
+  .card-body { padding: 16px; }
+  .card-title { font-size: 1.05rem; margin-bottom: 6px; }
+  .card-excerpt { margin-bottom: 12px; }
+  .card-footer-row { flex-wrap: wrap; gap: 10px 12px; padding-top: 12px; }
+  .card-action-btn { min-height: 44px; padding: 0 16px; justify-content: center; }
+  .card-unavailable-pill { white-space: normal; text-align: center; justify-content: center; }
+  .card-weight-badge { top: 10px; right: 10px; }
+  .card-tag-badge { left: 10px; top: 16px; }
+  .card-sad-overlay { width: 44px; height: 44px; right: 10px; bottom: 10px; }
+
+  /* language dock: slimmer so it covers less of the page */
+  body[data-page="shop"] .side-dock-handle { width: 34px; height: 46px; opacity: .92; }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 420px) {
+  .shop-section .container { padding-left: 14px; padding-right: 14px; }
+  .card-tag-badge { font-size: .68rem; padding: 4px 10px; max-width: calc(100% - 92px); }
+  .card-price-value { font-size: 1.1rem; }
+  .card-footer-row .card-action-btn,
+  .card-footer-row .card-unavailable-pill { flex: 1 1 140px; }
+  .shop-section .category-pill-btn { font-size: .84rem; padding: 8px 10px; }
+}
+
+/* ---------- Compact tabs on phones (smaller, still easy to tap) ---------- */
+@media (max-width: 768px) {
+  .shop-section .categories-bar-compact { gap: 4px; padding: 4px; }
+  .shop-section .category-pill-btn {
+    min-height: 38px;
+    padding: 6px 10px;
+    font-size: .8rem;
+    gap: 5px;
+  }
+  .shop-section .category-pill-btn .count-tag { font-size: .68rem; padding: 0 6px; }
+}
+
+/* ---------- Phones: shop filter tabs become a dropdown ---------- */
+.mobile-filter-select { display: none; }
+@media (max-width: 768px) {
+  .shop-section .categories-bar-compact { display: none; }
+  .shop-section .mobile-filter-select {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 40px 8px 14px;
+    font-size: .92rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: #7a1018;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237a1018' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
+    border: 1.5px solid #d9c3a0;
+    border-radius: 12px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .shop-section .mobile-filter-select:focus { outline: 2px solid #c9a15a; outline-offset: 1px; }
+}

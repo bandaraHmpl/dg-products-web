@@ -362,7 +362,7 @@ function headerHtml() {
 }
 
 /* Phone-only side dock: language + currency tucked on the right edge */
-function sideDockHtml() {
+function sideDockHtml(withCurrency = true) {
   return `
     <aside id="side-dock" class="side-dock" aria-label="Language and currency">
       <button type="button" id="side-dock-handle" class="side-dock-handle" aria-expanded="false" aria-controls="side-dock-panel" aria-label="Language and currency">
@@ -374,10 +374,10 @@ function sideDockHtml() {
           <button type="button" class="side-dock-opt lang-opt-btn" data-lang="en">EN</button>
           <button type="button" class="side-dock-opt lang-opt-btn" data-lang="ta">தமிழ்</button>
         </div>
-        <div class="side-dock-group" role="group" aria-label="Currency">
+        ${withCurrency ? `<div class="side-dock-group" role="group" aria-label="Currency">
           <button type="button" class="side-dock-opt curr-opt-btn" data-curr="LKR">LKR</button>
           <button type="button" class="side-dock-opt curr-opt-btn" data-curr="USD">USD</button>
-        </div>
+        </div>` : ""}
       </div>
     </aside>`;
 }
@@ -544,6 +544,10 @@ function bindPageTransitions() {
 document.addEventListener("DOMContentLoaded", () => {
   const layout = document.body.dataset.layout;     // admin.html uses data-layout="none"
   if (layout !== "none") injectLayout();
+  // admin page has no site header, but on phones it gets the same side dock (language only)
+  if (layout === "none" && DG.page() === "admin" && !document.getElementById("side-dock")) {
+    document.body.insertAdjacentHTML("beforeend", sideDockHtml(false));
+  }
 
   hydrateIcons();
   hydrateCloudinaryImages();
@@ -586,4 +590,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // ...then translations are applied, which also triggers their first render
   applyTranslations();
   revealPage();
+});
+
+/* ---------- Keep language / currency in sync across open tabs (site + admin) ---------- */
+window.addEventListener("storage", (e) => {
+  if (e.key === "dg_active_language" && e.newValue && TRANSLATIONS[e.newValue] && e.newValue !== currentLanguage) {
+    currentLanguage = e.newValue;
+    applyTranslations();
+  }
+  if (e.key === "dg_active_currency" && (e.newValue === "LKR" || e.newValue === "USD") && e.newValue !== currentCurrency) {
+    currentCurrency = e.newValue;
+    applyTranslations();
+  }
 });

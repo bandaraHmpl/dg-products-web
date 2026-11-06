@@ -8,6 +8,61 @@
 const ADMIN_PASSWORD = "dgadmin2026";
 let adminReviewsFilter = "all";
 
+/* ---------- Language helpers (language is shared with the whole site) ---------- */
+const AT = (k, f = "") => getTranslation("a_" + k, f);
+function atf(k, vars = {}) { return AT(k).replace(/\{(\w+)\}/g, (m, n) => (vars[n] !== undefined ? vars[n] : m)); }
+function adminMoney(n) {
+  const pre = currentLanguage === "si" ? "රු." : currentLanguage === "ta" ? "ரூ." : "Rs.";
+  return `${pre} ${Number(n).toLocaleString()}`;
+}
+let adminEditingName = "";
+function refreshFormTitle() {
+  const t = document.getElementById("admin-form-title");
+  if (t) t.textContent = adminEditingName ? atf("formEdit", { name: adminEditingName }) : AT("formAdd");
+}
+function adminRerender() {
+  renderAdminProductsList();
+  updateAdminPendingBadge();
+  const rv = document.getElementById("admin-tab-reviews-content");
+  if (rv && rv.style.display === "block") renderAdminReviewsList();
+  refreshFormTitle();
+  setAdminNav(!!document.querySelector(".admin-dashboard-modal")?.classList.contains("nav-open"));
+  document.getElementById("admin-new-product-btn")?.setAttribute("aria-label", AT("addNew"));
+  document.getElementById("admin-close-dashboard-btn")?.setAttribute("aria-label", getTranslation("adminLogout"));
+  document.querySelectorAll(".admin-lang").forEach(g => g.setAttribute("aria-label", AT("langLabel")));
+}
+
+/* ---------- Mobile drawer (hamburger) ---------- */
+function setAdminNav(open) {
+  const modal = document.querySelector(".admin-dashboard-modal");
+  const btn = document.getElementById("admin-menu-btn");
+  if (!modal) return;
+  modal.classList.toggle("nav-open", open);
+  if (btn) {
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? AT("menuClose") : AT("menuOpen"));
+  }
+}
+
+/* ---------- Summary cards on the inventory tab ---------- */
+function renderAdminStats() {
+  const box = document.getElementById("admin-stats");
+  if (!box) return;
+  const total = productsInventory.length;
+  const available = productsInventory.filter(isProductAvailable).length;
+  const pending = productReviews.filter(r => r.status === "pending").length;
+  const cards = [
+    { icon: "package", value: total, label: AT("statTotal"), go: "list" },
+    { icon: "check", value: available, label: AT("statOpen"), go: "list" },
+    { icon: "star", value: pending, label: pending === 1 ? AT("statReview1") : AT("statReviewN"), go: "reviews" }
+  ];
+  box.innerHTML = cards.map(c => `
+    <button type="button" class="admin-stat-card" data-go="${c.go}">
+      <span class="admin-stat-icon">${icon(c.icon, 20)}</span>
+      <span class="admin-stat-text"><span class="admin-stat-value tabular">${c.value}</span><span class="admin-stat-label">${c.label}</span></span>
+    </button>`).join("");
+}
+
 function showAdminLoginPrompt() {
   const modal = document.getElementById("admin-login-modal-backdrop");
   if (!modal) return;
@@ -31,9 +86,9 @@ function verifyAdminPassword() {
   if (passInput.value.trim() === ADMIN_PASSWORD) {
     closeAdminLoginPrompt();
     openAdminDashboard();
-    showToast("Admin access granted!");
+    showToast(AT("toastGranted"));
   } else {
-    showToast("Incorrect password. Please try again.");
+    showToast(AT("toastWrong"));
     passInput.value = "";
     passInput.focus();
   }
@@ -51,11 +106,15 @@ function openAdminDashboard() {
 function closeAdminDashboard() {
   const dashboard = document.getElementById("admin-dashboard-backdrop");
   if (dashboard) dashboard.classList.remove("open");
+  setAdminNav(false);
 }
 
 function switchAdminTab(tab) {
+  setAdminNav(false);
+  const contentArea = document.querySelector(".dashboard-content-area");
+  if (contentArea) contentArea.scrollTop = 0;
   document.querySelectorAll(".dashboard-tab-btn").forEach(btn => {
-    if (btn.getAttribute("data-tab") === tab) {
+    if (btn.getAttribute("data-tab") === (tab === "form" ? "list" : tab)) {
       btn.classList.add("active");
     } else {
       btn.classList.remove("active");
@@ -91,6 +150,8 @@ function updateAdminPendingBadge() {
     badge.style.display = pendingCount > 0 ? "inline-flex" : "none";
   }
 
+  renderAdminStats();
+
   const countAll = document.getElementById("count-all-reviews");
   const countPending = document.getElementById("count-pending-reviews");
   const countApproved = document.getElementById("count-approved-reviews");
@@ -122,7 +183,7 @@ function renderAdminReviewsList() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="no-reviews-box" style="padding:40px 20px;">
-        <p>No customer reviews found matching filter "${adminReviewsFilter}".</p>
+        <p>${AT("revNone")}</p>
       </div>
     `;
     return;
@@ -137,7 +198,7 @@ function renderAdminReviewsList() {
 
     const stars = renderStarsHtml(r.rating);
     const itemClass = `is-${r.status}`;
-    const statusLabel = r.status.charAt(0).toUpperCase() + r.status.slice(1);
+    const statusLabel = AT("f" + r.status.charAt(0).toUpperCase() + r.status.slice(1), r.status);
     const locText = r.location ? `(${r.location})` : "";
 
     const approveBtnText = getTranslation("adminBtnApprove", "Approve");
@@ -165,7 +226,7 @@ function renderAdminReviewsList() {
         </div>
 
         <div class="admin-review-actions-bar">
-          <span>Review ID: <code style="font-size:0.75rem;">${r.id}</code></span>
+          <span>${AT("revId")} <code style="font-size:0.75rem;">${r.id}</code></span>
           <div class="admin-review-btn-group">
             ${r.status !== "approved" ? `
               <button class="btn-mod-action approve" onclick="approveReview('${r.id}')">
@@ -208,7 +269,7 @@ window.rejectReview = function(id) {
 };
 
 window.deleteReview = function(id) {
-  if (confirm("Are you sure you want to permanently delete this customer review?")) {
+  if (confirm(AT("confirmDelReview"))) {
     productReviews = productReviews.filter(r => r.id !== id);
     saveProductReviews();
     renderAdminReviewsList();
@@ -220,24 +281,38 @@ function renderAdminProductsList() {
   const tbody = document.getElementById("admin-products-table-body");
   if (!tbody) return;
 
+  renderAdminStats();
+  // labels shown beside each value when the table turns into cards on phones
+  const labels = Array.from(document.querySelectorAll(".admin-table thead th")).map(th => th.textContent.trim());
+  const L = i => (labels[i] || "").replace(/"/g, "&quot;");
+
+  const q = (document.getElementById("admin-search")?.value || "").trim().toLowerCase();
+  const list = productsInventory.filter(p => !q || [p.name.en, p.name.si, p.category, p.weight].join(" ").toLowerCase().includes(q));
+  const countEl = document.getElementById("admin-result-count");
+  if (countEl) countEl.textContent = q ? atf("countSome", { n: list.length, total: productsInventory.length }) : atf("countAll", { n: productsInventory.length });
+  const emptyEl = document.getElementById("admin-empty");
+  if (emptyEl) emptyEl.hidden = list.length > 0;
+
   let html = "";
-  productsInventory.forEach((p, index) => {
+  list.forEach((p, index) => {
+    const on = isProductAvailable(p);
     html += `
       <tr>
-        <td>
+        <td data-label="${L(0)}">
           <img src="${cld(p.image, 120, true)}" class="admin-product-thumb" alt="Product" onerror="imgFallback(this)" />
         </td>
-        <td>
+        <td data-label="${L(1)}">
           <strong>${p.name.en}</strong><br>
           <small style="color:#718096;">${p.name.si || ''}</small>
+          <label class="admin-switch"><input type="checkbox" data-toggle-id="${p.id}" ${on ? "checked" : ""} aria-label="${AT("switchAria")}" /><span class="admin-switch-track"></span><span class="admin-switch-text">${on ? AT("available") : AT("notAvailable")}</span></label>
         </td>
-        <td><span style="text-transform: capitalize;">${p.category}</span></td>
-        <td class="tabular">${p.weight}</td>
-        <td class="tabular font-semibold">Rs. ${p.priceLkr.toLocaleString()}</td>
-        <td>
+        <td data-label="${L(2)}"><span style="text-transform: capitalize;">${p.category}</span></td>
+        <td class="tabular" data-label="${L(3)}">${p.weight}</td>
+        <td class="tabular font-semibold" data-label="${L(4)}">${adminMoney(p.priceLkr)}</td>
+        <td data-label="${L(5)}">
           <div class="admin-actions-cell">
-            <button class="btn-icon-action edit" onclick="editProductInAdmin('${p.id}')">${icon("square-pen", 14)} Edit</button>
-            <button class="btn-icon-action delete" onclick="deleteProductInAdmin('${p.id}')">${icon("trash-2", 14)} Delete</button>
+            <button class="btn-icon-action edit" onclick="editProductInAdmin('${p.id}')">${icon("square-pen", 14)} ${AT("editBtn")}</button>
+            <button class="btn-icon-action delete" onclick="deleteProductInAdmin('${p.id}')">${icon("trash-2", 14)} ${getTranslation("adminBtnDelete", "Delete")}</button>
           </div>
         </td>
       </tr>
@@ -270,23 +345,26 @@ window.editProductInAdmin = function(id) {
   document.getElementById("form-prod-available").checked = isProductAvailable(product);
   document.getElementById("form-prod-main").checked = !!product.main;
 
-  document.getElementById("admin-form-title").textContent = "Edit Product: " + product.name.en;
+  adminEditingName = product.name.en;
+  refreshFormTitle();
   switchAdminTab("form");
 };
 
 window.deleteProductInAdmin = function(id) {
-  if (confirm("Are you sure you want to delete this product from your inventory?")) {
+  const _p = productsInventory.find(p => p.id === id);
+  if (confirm(atf("confirmDelete", { name: _p ? _p.name.en : AT("thisProduct") }))) {
     productsInventory = productsInventory.filter(p => p.id !== id);
     saveProductsInventory();
     renderAdminProductsList();
-      showToast("Product deleted successfully.");
+      showToast(AT("toastDeleted"));
   }
 };
 
 function resetAdminProductForm() {
   document.getElementById("form-prod-id").value = "";
   document.getElementById("admin-product-edit-form").reset();
-  document.getElementById("admin-form-title").textContent = "Add New Product";
+  adminEditingName = "";
+  refreshFormTitle();
 }
 
 function handleSaveProductForm(e) {
@@ -327,10 +405,10 @@ function handleSaveProductForm(e) {
 
   if (existingIndex >= 0) {
     productsInventory[existingIndex] = productData;
-    showToast("Product updated successfully!");
+    showToast(AT("toastUpdated"));
   } else {
     productsInventory.push(productData);
-    showToast("New product added to inventory!");
+    showToast(AT("toastAdded"));
   }
 
   saveProductsInventory();
@@ -339,11 +417,11 @@ function handleSaveProductForm(e) {
 }
 
 function resetToDefaultInventory() {
-  if (confirm("Restore original DG Products catalog? Any custom modifications will be reset.")) {
+  if (confirm(AT("confirmReset"))) {
     productsInventory = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
     saveProductsInventory();
     renderAdminProductsList();
-      showToast("Restored factory catalog successfully.");
+      showToast(AT("toastReset"));
   }
 }
 
@@ -366,14 +444,35 @@ DG.ready(() => {
     });
   });
 
+  const reviewFilterSelect = document.getElementById("admin-review-filter-select");
+  // phones: the filter buttons are shown as a dropdown; keep its labels (with counts) in step with the buttons
+  const syncReviewFilterSelect = () => {
+    if (!reviewFilterSelect) return;
+    reviewFilterSelect.innerHTML = [...document.querySelectorAll(".review-filter-btn")].map(b => {
+      const f = b.getAttribute("data-filter") || "all";
+      return `<option value="${f}"${f === adminReviewsFilter ? " selected" : ""}>${b.textContent.replace(/\s+/g, " ").trim()}</option>`;
+    }).join("");
+  };
+  const setReviewFilter = f => {
+    adminReviewsFilter = f || "all";
+    document.querySelectorAll(".review-filter-btn").forEach(b => b.classList.toggle("active", (b.getAttribute("data-filter") || "all") === adminReviewsFilter));
+    syncReviewFilterSelect();
+    renderAdminReviewsList();
+  };
   document.querySelectorAll(".review-filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".review-filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      adminReviewsFilter = btn.getAttribute("data-filter") || "all";
-      renderAdminReviewsList();
-    });
+    btn.addEventListener("click", () => setReviewFilter(btn.getAttribute("data-filter")));
   });
+  reviewFilterSelect?.addEventListener("change", () => setReviewFilter(reviewFilterSelect.value));
+  const reviewFilterBox = document.querySelector(".admin-review-filters");
+  if (reviewFilterBox && reviewFilterSelect) {
+    syncReviewFilterSelect();
+    new MutationObserver(() => {
+      // counts/translations changed → refresh option text (only if it actually differs, avoids loops)
+      const labels = [...reviewFilterBox.querySelectorAll(".review-filter-btn")].map(b => b.textContent.replace(/\s+/g, " ").trim());
+      const cur = [...reviewFilterSelect.options].map(o => o.textContent);
+      if (labels.join("|") !== cur.join("|")) syncReviewFilterSelect();
+    }).observe(reviewFilterBox, { childList: true, subtree: true, characterData: true });
+  }
 
   document.getElementById("admin-new-product-btn")?.addEventListener("click", () => {
     resetAdminProductForm();
@@ -387,6 +486,36 @@ DG.ready(() => {
   document.getElementById("admin-product-edit-form")?.addEventListener("submit", handleSaveProductForm);
 
   updateAdminPendingBadge();
+
+  /* Simple client helpers: search, availability switch, stat shortcuts, back link */
+  document.getElementById("admin-search")?.addEventListener("input", renderAdminProductsList);
+  document.getElementById("admin-products-table-body")?.addEventListener("change", (e) => {
+    const t = e.target.closest("[data-toggle-id]");
+    if (!t) return;
+    const p = productsInventory.find(x => x.id === t.dataset.toggleId);
+    if (!p) return;
+    p.available = t.checked;
+    saveProductsInventory();
+    renderAdminProductsList();
+    showToast(t.checked ? AT("toastOn") : AT("toastOff"));
+  });
+  document.getElementById("admin-stats")?.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-go]");
+    if (b) switchAdminTab(b.dataset.go);
+  });
+  document.getElementById("admin-back-btn")?.addEventListener("click", () => { resetAdminProductForm(); switchAdminTab("list"); });
+
+  /* Re-draw every admin section whenever the site language changes */
+  window.addEventListener("dg:rerender", adminRerender);
+
+  /* Mobile drawer */
+  document.getElementById("admin-menu-btn")?.addEventListener("click", () => {
+    const open = !document.querySelector(".admin-dashboard-modal")?.classList.contains("nav-open");
+    setAdminNav(open);
+  });
+  document.getElementById("admin-nav-backdrop")?.addEventListener("click", () => setAdminNav(false));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setAdminNav(false); });
+  window.matchMedia("(min-width: 769px)").addEventListener?.("change", (e) => { if (e.matches) setAdminNav(false); });
 
   /* Admin form: preset colours */
   (function () {

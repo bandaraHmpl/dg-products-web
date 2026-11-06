@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Admin | DG PRODUCTS</title>
     <meta name="description" content="DG PRODUCTS administration." />
     <meta property="og:title" content="Admin | DG PRODUCTS" />
@@ -14,6 +14,7 @@
     <meta name="theme-color" content="#86151B" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/admin-responsive.css" />
     <noscript><style>#page-loader, #intro-splash { display: none !important; }</style></noscript>
     <script defer src="js/data.js"></script>
     <script defer src="js/common.js"></script>
@@ -32,13 +33,14 @@
       <div class="admin-login-modal">
         <div class="admin-modal-header">
           <h3 id="admin-login-heading" data-i18n="adminUnlockTitle">DG Products Administrator Login</h3>
+          <div class="admin-lang" role="group" aria-label="Language"><button type="button" class="lang-opt-btn" data-lang="en">EN</button><button type="button" class="lang-opt-btn" data-lang="si">සිං</button><button type="button" class="lang-opt-btn" data-lang="ta">த</button></div>
         </div>
         <div class="admin-modal-body">
           <div class="admin-security-note">
-            <strong>Security Notice:</strong> Client-side password protection is implemented for store owner operational convenience, not cryptographic server security.
+            <strong><span data-i18n="a_secTitle">Security Notice:</span></strong> <span data-i18n="a_secText">Client-side password protection is implemented for store owner operational convenience, not cryptographic server security.</span>
           </div>
           <div class="form-group">
-            <label class="form-label" for="admin-password-input">Admin Password</label>
+            <label class="form-label" for="admin-password-input"><span data-i18n="a_passLabel">Admin Password</span></label>
             <input
               type="password"
               id="admin-password-input"
@@ -48,7 +50,7 @@
               autocomplete="current-password"
             />
           </div>
-          <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <div class="admin-login-actions">
             <button id="admin-login-cancel-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
             <button id="admin-login-submit-btn" class="btn-primary" data-i18n="adminBtnLogin">Unlock Dashboard</button>
           </div>
@@ -60,193 +62,165 @@
       <div class="admin-dashboard-modal">
         <div class="dashboard-header">
           <div class="dashboard-title-box">
+            <button type="button" id="admin-menu-btn" class="admin-menu-btn" aria-label="Open menu" aria-controls="admin-sidebar" aria-expanded="false">
+              <i data-icon="menu" data-size="22"></i>
+            </button>
             <span class="dashboard-title-icon"><i data-icon="settings" data-size="24"></i></span>
             <h3 id="admin-dashboard-heading" data-i18n="adminDashboardTitle">DG Products Catalog Manager</h3>
           </div>
           <div class="dashboard-toolbar">
-            <button id="admin-new-product-btn" class="btn-secondary" style="color:#ffffff; border-color:rgba(255,255,255,0.4); background:transparent;">
-              <i data-icon="plus" data-size="16"></i> Add Product
+            <div class="admin-lang" role="group" aria-label="Language"><button type="button" class="lang-opt-btn" data-lang="en">EN</button><button type="button" class="lang-opt-btn" data-lang="si">සිං</button><button type="button" class="lang-opt-btn" data-lang="ta">த</button></div>
+            <button id="admin-new-product-btn" class="btn-primary admin-add-btn" aria-label="Add Product">
+              <i data-icon="plus" data-size="16"></i> <span class="btn-label"><span data-i18n="a_addNew">Add new product</span></span>
             </button>
-            <button id="admin-close-dashboard-btn" class="btn-secondary" style="color:#ffffff; border-color:rgba(255,255,255,0.4); background:transparent;">
-              <i data-icon="x" data-size="16"></i> Close
+            <button id="admin-close-dashboard-btn" class="btn-secondary admin-head-btn" aria-label="Close">
+              <i data-icon="x" data-size="16"></i> <span class="btn-label"><span data-i18n="adminLogout">Exit admin</span></span>
             </button>
           </div>
         </div>
 
-        <div class="dashboard-tabs">
-          <button class="dashboard-tab-btn active" data-tab="list" data-i18n="adminTabProducts">Inventory List</button>
-          <button class="dashboard-tab-btn" data-tab="form" id="admin-form-tab-btn" data-i18n="adminTabAdd">Add / Edit Product</button>
-          <button class="dashboard-tab-btn" data-tab="reviews" id="admin-reviews-tab-btn">
-            <span data-i18n="adminTabReviews">Reviews &amp; Moderation</span>
-            <span id="admin-pending-review-badge" class="admin-badge-count" style="display:none;">0</span>
-          </button>
-        </div>
+        <div class="dashboard-body">
+          <div id="admin-nav-backdrop" class="admin-nav-backdrop"></div>
 
-        <div class="dashboard-content-area">
+          <!-- Sidebar on tablet/desktop, slide-in drawer (hamburger) on phones -->
+          <nav class="dashboard-tabs" id="admin-sidebar" aria-label="Admin sections">
+            <p class="admin-nav-title"><span data-i18n="a_navTitle">Manage your shop</span></p>
+            <button class="dashboard-tab-btn active" data-tab="list"><span class="tab-main"><i data-icon="package" data-size="20"></i><span><span data-i18n="a_navProducts">Products</span></span></span></button>
+            <button class="dashboard-tab-btn" data-tab="reviews" id="admin-reviews-tab-btn"><span class="tab-main"><i data-icon="star" data-size="20"></i><span><span data-i18n="a_navReviews">Customer Reviews</span></span></span><span id="admin-pending-review-badge" class="admin-badge-count" style="display:none;">0</span></button>
+            <button class="dashboard-tab-btn" data-tab="form" id="admin-form-tab-btn" hidden>Add / Edit Product</button>
+            <div class="admin-help-card"><strong><span data-i18n="a_helpTitle">Good to know</span></strong><p><span data-i18n="a_helpText">Changes are saved in this browser only. Customers will see them once the catalogue is moved online (Firebase).</span></p></div>
+          </nav>
 
-          <div id="admin-tab-list-content">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-              <p style="font-size:0.88rem; color:var(--color-text-muted);">
-                Changes are saved in this browser only (LocalStorage). Moving the catalogue to Firebase will make them live for every visitor.
-              </p>
-              <button id="admin-reset-catalog-btn" class="btn-secondary" style="font-size:0.8rem; padding:8px 12px;" data-i18n="adminBtnReset">
-                Restore Factory Catalog
-              </button>
+          <div class="dashboard-content-area">
+
+            <div id="admin-tab-list-content">
+              <div id="admin-stats" class="admin-stats"></div>
+
+              <div class="admin-page-head">
+                <div><h4 class="admin-page-title"><span data-i18n="a_prodTitle">Your products</span></h4>
+                <p class="admin-page-sub"><span data-i18n="a_prodSub">Edit a product, or use the switch to show or hide it for ordering.</span></p></div>
+              </div>
+              <div class="admin-list-toolbar">
+                <div class="admin-search"><i data-icon="search" data-size="18"></i><input type="search" id="admin-search" class="form-control" placeholder="Search by name, size or category..." data-i18n-placeholder="a_searchPh" aria-label="Search products" /></div>
+                <span id="admin-result-count" class="admin-result-count"></span>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th data-i18n="adminColImage">Photo</th>
+                      <th data-i18n="adminColName">Product Name</th>
+                      <th data-i18n="adminColCategory"><span data-i18n="a_lCat">Category</span></th>
+                      <th data-i18n="adminColWeight">Weight</th>
+                      <th data-i18n="adminColPrice">Price (LKR)</th>
+                      <th data-i18n="adminColActions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-products-table-body">
+                  </tbody>
+                </table>
+              </div>
+              <div id="admin-empty" class="admin-empty" hidden><strong><span data-i18n="a_emptyTitle">No products found</span></strong><p><span data-i18n="a_emptyText">Try a different word, or click &ldquo;Add new product&rdquo; to create one.</span></p></div>
+              <div class="admin-danger-zone"><div><strong><span data-i18n="a_startOver">Start over?</span></strong><p><span data-i18n="a_startOverText">Brings back the original DG Products list. Your own changes will be removed.</span></p></div>
+                <button id="admin-reset-catalog-btn" class="btn-secondary admin-reset-btn"><span data-i18n="a_resetBtn">Restore original products</span></button></div>
             </div>
 
-            <div style="overflow-x:auto;">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th data-i18n="adminColImage">Photo</th>
-                    <th data-i18n="adminColName">Product Name</th>
-                    <th data-i18n="adminColCategory">Category</th>
-                    <th data-i18n="adminColWeight">Weight</th>
-                    <th data-i18n="adminColPrice">Price (LKR)</th>
-                    <th data-i18n="adminColActions">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="admin-products-table-body">
-                </tbody>
-              </table>
+            <div id="admin-tab-form-content" style="display:none;">
+              <button type="button" id="admin-back-btn" class="admin-back-btn"><span data-i18n="a_back">&larr; Back to products</span></button>
+              <h4 id="admin-form-title" class="admin-page-title">Add New Product</h4>
+              <p class="admin-page-sub"><span data-i18n="a_formSubA">Required fields are marked with</span> <span class="req">*</span>. <span data-i18n="a_formSubB">Everything else is optional.</span></p>
+
+              <form id="admin-product-edit-form">
+                <input type="hidden" id="form-prod-id" />
+
+                <section class="admin-section"><h5 class="admin-section-title"><i data-icon="package" data-size="18"></i> <span data-i18n="a_s1">1. Basic details</span></h5>
+                <div class="admin-form-grid">
+                  <div class="form-group span-2"><label class="form-label" for="form-prod-name-en"><span data-i18n="a_lName">Product name (English)</span> <span class="req">*</span></label>
+                    <input type="text" id="form-prod-name-en" class="form-control" required placeholder="e.g. Traditional Ceylon Lunu Dehi (250g Jar)" data-i18n-placeholder="a_phName" /></div>
+                  <div class="form-group"><label class="form-label" for="form-prod-price"><span data-i18n="a_lPrice">Price in Rs.</span> <span class="req">*</span></label>
+                    <input type="number" id="form-prod-price" class="form-control" required min="1" step="1" inputmode="numeric" placeholder="e.g. 650" data-i18n-placeholder="a_phPrice" /></div>
+                  <div class="form-group"><label class="form-label" for="form-prod-weight"><span data-i18n="a_lWeight">Size / weight</span> <span class="req">*</span></label>
+                    <input type="text" id="form-prod-weight" class="form-control" required placeholder="e.g. 250g, 500g, 1kg" data-i18n-placeholder="a_phWeight" /></div>
+                  <div class="form-group span-2"><label class="form-label" for="form-prod-category"><span data-i18n="a_lCat">Category</span> <span class="req">*</span></label>
+                    <select id="form-prod-category" class="form-control">
+                      <option value="traditional" data-i18n="catTraditional">Traditional Lunu Dehi</option><option value="spiced" data-i18n="catSpiced">Spiced & Seasoned Pickle</option>
+                      <option value="special" data-i18n="catSpecial">Value Packs & Gift Jars</option><option value="sambal" data-i18n="catSambal">Sambals</option>
+                      <option value="tea" data-i18n="catTea">Cinnamon Tea</option><option value="spice" data-i18n="catSpice">Ceylon Spices</option></select></div>
+                </div></section>
+
+                <section class="admin-section"><h5 class="admin-section-title"><i data-icon="package" data-size="18"></i> <span data-i18n="a_s2">2. Photo</span></h5>
+                  <div class="form-group"><label class="form-label" for="form-prod-image"><span data-i18n="a_lImage">Photo name or link</span></label>
+                    <input type="text" id="form-prod-image" class="form-control" placeholder="e.g. dg/chicken-sambal  or  https://res.cloudinary.com/..." />
+                    <p class="form-hint"><span data-i18n="a_hImage">Paste the image name from Cloudinary, or a full image link. Leave empty to use the default photo.</span></p></div></section>
+
+                <section class="admin-section"><h5 class="admin-section-title"><i data-icon="file-text" data-size="18"></i> <span data-i18n="a_s3">3. Description</span></h5>
+                <div class="admin-form-grid">
+                  <div class="form-group span-2"><label class="form-label" for="form-prod-desc-en"><span data-i18n="a_lDescEn">Description (English)</span></label>
+                    <textarea id="form-prod-desc-en" class="form-control" rows="3" placeholder="Taste, how it is made, how to enjoy it..." data-i18n-placeholder="a_phDesc"></textarea></div>
+                  <div class="form-group span-2"><label class="form-label" for="form-prod-addinfo-en"><span data-i18n="a_lAddInfo">Ingredients &amp; extra information</span></label>
+                    <textarea id="form-prod-addinfo-en" class="form-control" rows="2" placeholder="Ingredients, storage, batch..." data-i18n-placeholder="a_phAddInfo"></textarea></div>
+                </div>
+                <details class="admin-more"><summary><span data-i18n="a_more">Add Sinhala &amp; Tamil (optional)</span></summary>
+                <div class="admin-form-grid">
+                  <div class="form-group"><label class="form-label" for="form-prod-name-si"><span data-i18n="a_lNameSi">Name (Sinhala)</span></label><input type="text" id="form-prod-name-si" class="form-control" placeholder="සිංහල නම" /></div>
+                  <div class="form-group"><label class="form-label" for="form-prod-name-ta"><span data-i18n="a_lNameTa">Name (Tamil)</span></label><input type="text" id="form-prod-name-ta" class="form-control" placeholder="தமிழ் பெயர்" /></div>
+                  <div class="form-group"><label class="form-label" for="form-prod-desc-si"><span data-i18n="a_lDescSi">Description (Sinhala)</span></label><textarea id="form-prod-desc-si" class="form-control" rows="2" placeholder="සිංහල විස්තරය..."></textarea></div>
+                  <div class="form-group"><label class="form-label" for="form-prod-desc-ta"><span data-i18n="a_lDescTa">Description (Tamil)</span></label><textarea id="form-prod-desc-ta" class="form-control" rows="2" placeholder="தமிழ் விளக்கம்..."></textarea></div>
+                  <p class="form-hint span-2"><span data-i18n="a_hLang">If you leave these empty, the English text is shown instead.</span></p>
+                </div></details></section>
+
+                <section class="admin-section"><h5 class="admin-section-title"><i data-icon="settings" data-size="18"></i> <span data-i18n="a_s4">4. Look on the website</span></h5>
+                <div class="admin-form-grid">
+                  <div class="form-group"><label class="form-label" for="form-prod-tag"><span data-i18n="a_lTag">Small label on the card</span></label>
+                    <input type="text" id="form-prod-tag" class="form-control" placeholder="e.g. Rich &amp; Spicy" data-i18n-placeholder="a_phTag" /></div>
+                  <div class="form-group"><label class="form-label" for="form-prod-palette"><span data-i18n="a_lPalette">Colour style</span></label>
+                    <select id="form-prod-palette" class="form-control">
+                      <option value="lime" selected data-i18n="a_palLime">Lime Pickle (Green, Brown, Cream, Gold)</option>
+                      <option value="chicken" data-i18n="a_palChicken">Chicken Sambal (Chili Red, Deep Brown, Cream)</option>
+                      <option value="fish" data-i18n="a_palFish">Fish Sambal (Deep Brown, Rust Red, Cream)</option>
+                      <option value="tea" data-i18n="a_palTea">Cinnamon Tea (Gold, Cream, Cinnamon Brown)</option>
+                      <option value="cinnamon" data-i18n="a_palCinnamon">Cinnamon Powder (Cinnamon Brown, Tan, Cream, Gold)</option>
+                      <option value="custom" data-i18n="a_palCustom">Custom colours</option></select></div>
+                  <div class="form-group span-2"><label class="form-label"><span data-i18n="a_lColours">Colours (main · secondary · light · accent)</span></label>
+                    <div class="palette-inputs"><input type="color" id="form-prod-c1" value="#3F6B2B" /><input type="color" id="form-prod-c2" value="#6B4423" /><input type="color" id="form-prod-c3" value="#F6EDD2" /><input type="color" id="form-prod-c4" value="#D5AD62" /></div>
+                    <p class="form-hint"><span data-i18n="a_hColours">Picking a colour style fills these in for you.</span></p></div>
+                </div></section>
+
+                <section class="admin-section"><h5 class="admin-section-title"><i data-icon="check" data-size="18"></i> <span data-i18n="a_s5">5. Where it appears</span></h5>
+                  <label class="admin-option"><input type="checkbox" id="form-prod-available" checked /><span><strong><span data-i18n="a_switchAria">Available to order</span></strong><small><span data-i18n="a_optAvailH">Turn off if it is not on sale yet. Customers will see &ldquo;not available right now&rdquo;.</span></small></span></label>
+                  <label class="admin-option"><input type="checkbox" id="form-prod-featured" checked /><span><strong><span data-i18n="a_optFeat">Show on the home page banner</span></strong><small><span data-i18n="a_optFeatH">Features this product at the top of the home page.</span></small></span></label>
+                  <label class="admin-option"><input type="checkbox" id="form-prod-main" /><span><strong><span data-i18n="a_optMain">Main product</span></strong><small><span data-i18n="a_optMainH">Shows under &ldquo;Main products&rdquo; in the shop. Best to keep this to 5.</span></small></span></label>
+                </section>
+              <div class="admin-form-actions">
+                  <button type="button" id="admin-cancel-form-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
+                  <button type="submit" class="btn-primary" ><span data-i18n="a_save">Save product</span></button>
+                </div>
+              </form>
             </div>
+
+            <div id="admin-tab-reviews-content" style="display:none;">
+              <div class="admin-reviews-toolbar">
+                <div>
+                  <h4 class="admin-page-title"><span data-i18n="a_revTitle">Customer reviews</span></h4>
+                  <p style="font-size:0.85rem; color:var(--color-text-muted); margin-top:2px;">
+                    <span data-i18n="a_revSub">Approve a review to show it on the product page, or reject it to keep it hidden. New reviews wait here for you.</span>
+                  </p>
+                </div>
+
+                <select id="admin-review-filter-select" class="mobile-filter-select" aria-label="Filter reviews"></select>
+                <div class="admin-review-filters" role="group">
+                  <button class="review-filter-btn active" data-filter="all"><span data-i18n="a_fAll">All</span> (<span id="count-all-reviews">0</span>)</button>
+                  <button class="review-filter-btn" data-filter="pending"><span data-i18n="a_fPending">Pending</span> (<span id="count-pending-reviews">0</span>)</button>
+                  <button class="review-filter-btn" data-filter="approved"><span data-i18n="a_fApproved">Approved</span> (<span id="count-approved-reviews">0</span>)</button>
+                  <button class="review-filter-btn" data-filter="rejected"><span data-i18n="a_fRejected">Rejected</span> (<span id="count-rejected-reviews">0</span>)</button>
+                </div>
+              </div>
+
+              <div id="admin-reviews-list-container" class="admin-reviews-list">
+              </div>
+            </div>
+
           </div>
-
-          <div id="admin-tab-form-content" style="display:none;">
-            <h4 id="admin-form-title" style="font-size:1.1rem; font-weight:700; margin-bottom:20px; color:var(--color-brand-deep);">
-              Add New Product
-            </h4>
-
-            <form id="admin-product-edit-form">
-              <input type="hidden" id="form-prod-id" />
-
-              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" for="form-prod-name-en">Product Name (English) *</label>
-                  <input type="text" id="form-prod-name-en" class="form-control" required placeholder="e.g. Traditional Ceylon Lunu Dehi (250g Jar)" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-name-si">Product Name (Sinhala)</label>
-                  <input type="text" id="form-prod-name-si" class="form-control" placeholder="e.g. සාම්ප්‍රදායික ගැමි ලුණු දෙහි (ග්‍රෑම් 250)" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-name-ta">Product Name (Tamil)</label>
-                  <input type="text" id="form-prod-name-ta" class="form-control" placeholder="e.g. பாரம்பரிய இலங்கை எலுமிச்சை ஊறுகாய்" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-price">Price in LKR (Rs.) *</label>
-                  <input type="number" id="form-prod-price" class="form-control" required min="1" step="1" placeholder="e.g. 650" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-weight">Weight Specification *</label>
-                  <input type="text" id="form-prod-weight" class="form-control" required placeholder="e.g. 250g, 500g, 1kg" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-category">Category *</label>
-                  <select id="form-prod-category" class="form-control">
-                    <option value="traditional">Traditional Lunu Dehi</option>
-                    <option value="spiced">Spiced & Seasoned Pickle</option>
-                    <option value="special">Value Packs & Gift Jars</option>
-                    <option value="sambal">Sambals</option>
-                    <option value="tea">Cinnamon Tea</option>
-                    <option value="spice">Ceylon Spices</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-image">Image (Cloudinary Public ID or URL)</label>
-                  <input type="text" id="form-prod-image" class="form-control" placeholder="e.g. dg/chicken-sambal  or  https://res.cloudinary.com/..." />
-                </div>
-
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" for="form-prod-desc-en">Description (English)</label>
-                  <textarea id="form-prod-desc-en" class="form-control" rows="3" placeholder="Taste profile, sun-curing details, food pairings..."></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-desc-si">Description (Sinhala)</label>
-                  <textarea id="form-prod-desc-si" class="form-control" rows="2" placeholder="සිංහල විස්තරය..."></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-desc-ta">Description (Tamil)</label>
-                  <textarea id="form-prod-desc-ta" class="form-control" rows="2" placeholder="தமிழ் விளக்கம்..."></textarea>
-                </div>
-
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-tag">Tag line (shown on cards &amp; banner)</label>
-                  <input type="text" id="form-prod-tag" class="form-control" placeholder="e.g. Rich &amp; Spicy" />
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-palette">Colour identity preset</label>
-                  <select id="form-prod-palette" class="form-control">
-                    <option value="lime" selected>Lime Pickle (Green, Brown, Cream, Gold)</option>
-                    <option value="chicken">Chicken Sambal (Chili Red, Deep Brown, Cream)</option>
-                    <option value="fish">Fish Sambal (Deep Brown, Rust Red, Cream)</option>
-                    <option value="tea">Cinnamon Tea (Gold, Cream, Cinnamon Brown)</option>
-                    <option value="cinnamon">Cinnamon Powder (Cinnamon Brown, Tan, Cream, Gold)</option>
-                    <option value="custom">Custom colours</option>
-                  </select>
-                </div>
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label">Product colours: main · secondary · cream tint · accent</label>
-                  <div class="palette-inputs">
-                    <input type="color" id="form-prod-c1" value="#3F6B2B" /><input type="color" id="form-prod-c2" value="#6B4423" />
-                    <input type="color" id="form-prod-c3" value="#F6EDD2" /><input type="color" id="form-prod-c4" value="#D5AD62" />
-                  </div>
-                </div>
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" style="display:flex;gap:8px;align-items:center;"><input type="checkbox" id="form-prod-featured" checked /> Show in the home banner</label>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" style="display:flex;gap:8px;align-items:center;"><input type="checkbox" id="form-prod-available" checked /> Available to order now</label>
-                  <p style="font-size:.78rem;color:var(--color-text-muted);margin-top:4px;">Untick for products not on sale yet. Customers see an "Oops, not available" message instead of the order button.</p>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" style="display:flex;gap:8px;align-items:center;"><input type="checkbox" id="form-prod-main" /> Main product (shop page &ldquo;Main products&rdquo; tab, keep to 5)</label>
-                </div>
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" for="form-prod-addinfo-en">Additional Info & Ingredients</label>
-                  <textarea id="form-prod-addinfo-en" class="form-control" rows="2" placeholder="Registration, batch, ingredients, storage..."></textarea>
-                </div>
-              </div>
-
-              <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
-                <button type="button" id="admin-cancel-form-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
-                <button type="submit" class="btn-primary" data-i18n="adminBtnSave">Save Product</button>
-              </div>
-            </form>
-          </div>
-
-          <div id="admin-tab-reviews-content" style="display:none;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
-              <div>
-                <h4 style="font-size:1.1rem; font-weight:700; color:var(--color-brand-deep);" data-i18n="adminTabReviews">
-                  Customer Reviews &amp; Moderation
-                </h4>
-                <p style="font-size:0.85rem; color:var(--color-text-muted); margin-top:2px;">
-                  Review customer feedback, approve genuine testimonials, or reject spam before publishing to product pages.
-                </p>
-              </div>
-
-              <div class="admin-review-filters" role="group">
-                <button class="review-filter-btn active" data-filter="all">All (<span id="count-all-reviews">0</span>)</button>
-                <button class="review-filter-btn" data-filter="pending">Pending (<span id="count-pending-reviews">0</span>)</button>
-                <button class="review-filter-btn" data-filter="approved">Approved (<span id="count-approved-reviews">0</span>)</button>
-                <button class="review-filter-btn" data-filter="rejected">Rejected (<span id="count-rejected-reviews">0</span>)</button>
-              </div>
-            </div>
-
-            <div id="admin-reviews-list-container" class="admin-reviews-list">
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
