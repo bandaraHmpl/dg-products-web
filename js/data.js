@@ -1,0 +1,792 @@
+/* ============================================================
+   DG PRODUCTS: site data (edit here)
+   Loaded on every page BEFORE common.js.
+   Contains: contact settings, Cloudinary images, translations (EN/SI/TA),
+   the default product catalogue and sample reviews.
+   ============================================================ */
+
+// 1 USD = 305 LKR
+const EXCHANGE_RATE_USD_TO_LKR = 305;
+
+// International format, no "+" or leading zero
+const WHATSAPP_PHONE_NUMBER = "94752264199";
+
+
+const BRAND_INFO = {
+  name: "DG PRODUCTS",
+  email: "dgproducts.dg@gmail.com",
+  phoneDisplay: "075 226 4199",
+  address: "Galbokka, Hewanwatta, Mahiyanganaya, Sri Lanka",
+  regNo: "U/1/6/රෙදි/727"
+};
+
+/* ============================================================
+   CLOUDINARY IMAGES  (edit here only)
+   1. Put your Cloudinary cloud name below.
+   2. Every value in IMAGE_PATHS is either a Cloudinary PUBLIC ID (e.g. "dg/lime-pickle-250")
+      or a full image URL. Replace the placeholders below whenever you like.
+   The logo stays a local file until you upload it to Cloudinary (then paste its public ID).
+   ============================================================ */
+const CLOUDINARY_CLOUD_NAME = "demo";   // <-- your Cloudinary cloud name
+
+const IMAGE_PATHS = {
+  logoPng: "images/logo.png",
+  logoJpeg: "images/logo.png",
+  product1: "food/spices",
+  product2: "food/fish-vegetables",
+  product3: "food/dessert",
+  product4: "food/pot-mussels",
+  product5: "food/spices",
+  product6: "food/dessert",
+  product7: "food/fish-vegetables",
+  heroLimes: "food/spices",
+  // new products (placeholders, replace with your real photos)
+  chickenSambal: "food/pot-mussels",
+  fishSambal: "food/fish-vegetables",
+  cinnamonTea: "food/dessert",
+  cinnamonPowder: "food/spices"
+};
+
+
+const TRANSLATIONS = {
+  en: {
+
+    navHome: "Home",
+    navAbout: "About Us",
+    navShop: "Shop",
+    navContact: "Contact Us",
+    aboutReadMore: "Read Our Full Story",
+    pdpNotFound: "Sorry, we could not find that product.",
+    btnShareProduct: "Share this product",
+    shareText: "Have a look at this from DG PRODUCTS:",
+    searchPlaceholder: "Search lemon & lime products...",
+    searchButton: "Search",
+
+    brandName: "DG PRODUCTS",
+    heroKicker: "Authentic Sri Lankan Heritage",
+    heroTitlePrefix: "Traditional Pure",
+    heroTitleAccent: "Ceylon Lunu Dehi",
+    heroTitleSuffix: "& Citrus Delights",
+    heroSubtitle: "Handcrafted from sun-ripened Mahiyanganaya limes, natural sea salt, and pure Ceylon spices. Free from artificial preservatives.",
+    btnShopNow: "Shop Our Lime Pickles",
+    btnLearnMore: "Our Traditional Story",
+    heroTrustSun: "100% Sun-Cured",
+    heroTrustSpices: "Pure Ceylon Spices",
+    heroTrustNoChem: "Zero Artificial Chemicals",
+    heroBadgeTitle: "Authentic Mahiyanganaya Recipe",
+    heroBadgeDesc: "Aged to perfection in glass jars",
+
+    aboutKicker: "Our Roots & Craft",
+    aboutTitle: "Bringing Sri Lanka's Richest Lime Traditions to Your Table",
+    aboutPara1: "DG PRODUCTS was founded in Mahiyanganaya with a simple passion: preserving the authentic heritage of traditional Ceylon Lunu Dehi (Salted Lime Pickle). We hand-select freshly harvested, thin-skinned citrus limes grown in lush tropical groves.",
+    aboutPara2: "Every batch is prepared with ancient sun-curing wisdom, steeped in pure solar salt, chili flakes, and aromatic spices until every lime segment attains an intensely rich, tangy, and digestive flavor profile that elevates any Sri Lankan meal.",
+    aboutFeat1Title: "Natural Solar Salt Aging",
+    aboutFeat1Desc: "Slow cured under direct sunlight to unlock authentic medicinal goodness and depth.",
+    aboutFeat2Title: "No Preservatives",
+    aboutFeat2Desc: "Crafted strictly with Lime, Salt, Sugar, and Chili flakes without synthetic colors or binders.",
+
+    shopKicker: "Product Catalog",
+    shopTitle: "Artisanal Lime & Pickle Collection",
+    shopSubtitle: "Every product is meticulously weighed, labeled, and sealed for export-grade freshness.",
+    categoriesLabel: "Categories",
+    catAll: "All Products",
+    catTraditional: "Traditional Lunu Dehi",
+    catSpiced: "Spiced & Seasoned",
+    catSpecial: "Value Packs & Jars", catSambal: "Sambals", catTea: "Cinnamon Tea", catSpice: "Ceylon Spices", heroShopAll: "Shop all products",
+    heroTitle: "Authentic Taste of Ceylon", heroSub: "Lunu Dehi, sambals, cinnamon tea and spices, handcrafted in Mahiyanganaya. Every product, all in one place.",
+    showingCount: "Showing {count} handcrafted items",
+    priceLabel: "Price",
+    weightLabel: "Weight",
+    btnViewDetails: "View & Order",
+    emptyCatalog: "No products match your current search or category filter.",
+    resetSearch: "Clear Filters",
+
+    pdpBack: "Back to Catalog",
+    pdpStock: "In Stock & Freshly Sealed",
+    pdpSelectWeight: "Available Weight:",
+    pdpQuantity: "Quantity:",
+    btnBuyNowWhatsApp: "Buy Now via WhatsApp",
+    pdpDescTitle: "Product Overview & Taste Profile",
+    pdpInfoTitle: "Additional Product Information",
+    pdpNutritionTitle: "Nutritional Facts (Per 100g)",
+    thWeight: "Net Weight",
+    thIngredients: "Ingredients",
+    thSugar: "Sugar",
+    thSalt: "Salt",
+    thFat: "Fat",
+    thShelfLife: "Shelf Life",
+    thStorage: "Storage",
+    thOrigin: "Origin",
+    thRegNo: "Govt Registration",
+    storageText: "Store in a cool, dry place. Always use a clean, dry spoon.",
+    ingredientsText: "Fresh Ceylon Lime, Natural Salt, Pure Cane Sugar, Sun-Dried Chili Flakes.",
+    shelfLifeText: "12 Months from Manufacturing Date",
+    originText: "Galbokka, Hewanwatta, Mahiyanganaya, Sri Lanka",
+    regNoText: "U/1/6/රෙදි/727",
+
+    showcaseKicker: "Culinary Inspiration",
+    showcaseTitle: "How to Enjoy Ceylon Lunu Dehi",
+    showcaseSubtitle: "The quintessential Sri Lankan condiment that turns every meal into a royal banquet.",
+    showcaseCard1Title: "Rice & Curry Banquet",
+    showcaseCard1Desc: "A small sliver adds an explosion of tangy richness to red rice, dhal, and coconut sambol.",
+    showcaseCard2Title: "Street-Style Kottu",
+    showcaseCard2Desc: "Elevates hot roti kottu or fried rice with an aromatic citrus burst.",
+    showcaseCard3Title: "Traditional Village Medicine",
+    showcaseCard3Desc: "A timeless Ceylon home remedy for healthy digestion and revitalizing the appetite.",
+
+    contactKicker: "Get In Touch",
+    contactTitle: "Order Directly from the Producers",
+    contactPara: "We dispatch orders island-wide and cater to bulk commercial orders, restaurants, grocery stores, and Sri Lankan expatriate gifts.",
+    contactPhoneLabel: "Direct Phone & WhatsApp",
+    contactEmailLabel: "Email Inquiries",
+    contactAddressLabel: "Production Facility",
+    footerAboutText: "DG PRODUCTS. Premium artisanal Ceylon Lunu Dehi and lime preserves from Mahiyanganaya.",
+    footerLinksTitle: "Quick Links",
+    footerHoursTitle: "Delivery & Hours",
+    footerHoursText: "Monday to Sunday: 8:00 AM - 8:00 PM. Islandwide courier delivery available.",
+    footerCopyright: "© 2026 DG PRODUCTS. All rights reserved.",
+
+    waOrderHello: "Hello DG PRODUCTS! I would like to order:",
+    waItem: "Product",
+    waWeight: "Weight",
+    waQty: "Quantity",
+    waPrice: "Price Each",
+    waTotal: "Estimated Total",
+    waPrompt: "Please let me know payment methods and islandwide delivery time to my address.",
+
+    reviewsTitle: "Customer Reviews & Experiences",
+    reviewsBasedOn: "Based on {count} verified customer reviews",
+    btnWriteReview: "Write a Review",
+    btnCancelReview: "Cancel",
+    lblYourRating: "Your Overall Rating:",
+    lblReviewerName: "Your Full Name *",
+    lblReviewerLocation: "City / Location (e.g. Colombo, Kandy, Melbourne)",
+    lblReviewTitle: "Review Headline *",
+    lblReviewComment: "Your Detailed Feedback / Experience *",
+    btnSubmitReview: "Submit Review for Verification",
+    reviewPendingNotice: "Thank you for your feedback! Your review has been submitted for moderation and will appear once verified by our team.",
+    noReviewsYet: "No customer reviews yet for this product. Be the first to share your experience!",
+    verifiedBuyer: "Verified Buyer",
+    ratingStars: "Stars",
+    ratingBreakdown: "Rating Breakdown",
+    starRatingPrompt: "Select a star rating",
+
+    adminUnlockTitle: "DG Products Administrator Login",
+    adminPassPlaceholder: "Enter admin password...",
+    adminBtnLogin: "Unlock Dashboard",
+    adminBtnCancel: "Cancel",
+    adminDashboardTitle: "DG Products Catalog Manager",
+    adminTabProducts: "Inventory List",
+    adminTabAdd: "Add New Product",
+    adminTabReviews: "Reviews & Moderation",
+    adminTabSettings: "Store Settings",
+    adminBtnAdd: "Add Product",
+    adminBtnSave: "Save Changes",
+    adminBtnDelete: "Delete",
+    adminBtnEdit: "Edit",
+    adminBtnReset: "Restore Factory Catalog",
+    adminLogout: "Exit Admin",
+    adminColImage: "Photo",
+    adminColName: "Product Name",
+    adminColCategory: "Category",
+    adminColWeight: "Weight",
+    adminColPrice: "Price (LKR)",
+    adminColActions: "Actions",
+    adminBtnApprove: "Approve",
+    adminBtnReject: "Reject",
+    adminReviewApprovedToast: "Review approved and published to product page!",
+    adminReviewRejectedToast: "Review rejected.",
+    adminReviewDeletedToast: "Review deleted permanently."
+  },
+
+  si: {
+
+    navHome: "මුල් පිටුව",
+    navAbout: "අප ගැන",
+    navShop: "නිෂ්පාදන පෙළ",
+    navContact: "අමතන්න",
+    aboutReadMore: "අපගේ සම්පූර්ණ කතාව කියවන්න",
+    pdpNotFound: "කණගාටුයි, එම නිෂ්පාදනය සොයාගත නොහැකි විය.",
+    btnShareProduct: "මෙම නිෂ්පාදනය බෙදාගන්න",
+    shareText: "DG PRODUCTS හි මෙම නිෂ්පාදනය බලන්න:",
+    searchPlaceholder: "දෙහි නිෂ්පාදන සොයන්න...",
+    searchButton: "සොයන්න",
+
+    brandName: "ඩීජී ප්‍රඩක්ට්ස්",
+    heroKicker: "දේශීය රසයේ සැබෑ උරුමය",
+    heroTitlePrefix: "ගැමි රස පිරි",
+    heroTitleAccent: "ලුණු දෙහි",
+    heroTitleSuffix: "සහ දෙහි නිෂ්පාදන",
+    heroSubtitle: "මහියංගනයේ නැවුම් ගැමි දෙහි, මුහුදු ලුණු සහ පිරිසිදු දේශීය කුළුබඩු යොදා පැරණි ක්‍රමයට අව්වේ පදම් කර නිපදවූ උසස්ම ලුණු දෙහි.",
+    btnShopNow: "ලුණු දෙහි ඇනවුම් කරන්න",
+    btnLearnMore: "අපේ කතාව",
+    heroTrustSun: "100% අව්වේ පදම් කළ",
+    heroTrustSpices: "පිරිසිදු ලංකා කුළුබඩු",
+    heroTrustNoChem: "කෘත්‍රිම කල්තබා ගැනීමේ ද්‍රව්‍ය නැත",
+    heroBadgeTitle: "සම්ප්‍රදායික මහියංගන වට්ටෝරුව",
+    heroBadgeDesc: "වීදුරු බෝතල්වල මනාව මුද්‍රා තැබූ",
+
+    aboutKicker: "අපේ උරුමය",
+    aboutTitle: "ශ්‍රී ලාංකීය සැබෑ ගැමි ලුණු දෙහි රසය ඔබේ කෑම මේසයට",
+    aboutPara1: "DG PRODUCTS ආයතනය මහියංගනයේ ආරම්භ කරන ලද්දේ පාරම්පරික ලුණු දෙහි සෑදීමේ සුවිශේෂී ශිල්ප ක්‍රමය සුරකිමින් පාරිභෝගිකයාට ඉහළම ගුණාත්මක රසයක් තිළිණ කිරීමේ අරමුණෙනි.",
+    aboutPara2: "අව්වේ වේලා පදම් කර, ගල් ලුණු, කෑලි මිරිස් සහ සුවඳවත් කුළුබඩු සමඟ මනාව මුසු කර නිපදවන අපගේ ලුණු දෙහි, බත් පතට අසමසම රසයක් සහ ගුණයක් එක් කරයි.",
+    aboutFeat1Title: "ස්වාභාවික සූර්යාලෝකයෙන් පදම් කිරීම",
+    aboutFeat1Desc: "ස්වාභාවික හිරු එළියෙන් පමණක් නිසි ප්‍රමිතියට පදම් කර සකසනු ලැබේ.",
+    aboutFeat2Title: "රසායනික ද්‍රව්‍ය වලින් තොරයි",
+    aboutFeat2Desc: "දෙහි, ලුණු, සීනි සහ කෑලි මිරිස් පමණක් යොදා කිසිදු කෘත්‍රිම රසකාරකයක් නොයොදයි.",
+
+    shopKicker: "නිෂ්පාදන එකතුව",
+    shopTitle: "නැවුම් දෙහි සහ ලුණු දෙහි පෙළ",
+    shopSubtitle: "ප්‍රමිතියෙන් උසස්, නිසි බර සහ මුද්‍රාව සහිතව සුරක්ෂිතව අසුරා ඇත.",
+    categoriesLabel: "වර්ගීකරණය",
+    catAll: "සියලු නිෂ්පාදන",
+    catTraditional: "සාම්ප්‍රදායික ලුණු දෙහි",
+    catSpiced: "තුනපහ දැමූ දෙහි",
+    catSpecial: "විශේෂ ඇසුරුම් සහ බෝතල්", catSambal: "සම්බෝල", catTea: "කුරුඳු තේ", catSpice: "සිලෝන් කුළුබඩු", heroShopAll: "සියලු නිෂ්පාදන බලන්න",
+    heroTitle: "සැබෑ සිලෝන් රසය", heroSub: "මහියංගනයේ සිට ලුණු දෙහි, සම්බෝල, කුරුඳු තේ සහ කුළුබඩු. සියලුම නිෂ්පාදන එකම තැනක.",
+    showingCount: "නිෂ්පාදන {count} ක් පෙන්වයි",
+    priceLabel: "මිල",
+    weightLabel: "බර",
+    btnViewDetails: "විස්තර හා ඇනවුම්",
+    emptyCatalog: "ඔබ සොයන නිර්ණායක වලට අදාළ නිෂ්පාදන නොමැත.",
+    resetSearch: "සොයුම ඉවත් කරන්න",
+
+    pdpBack: "නැවත වෙළඳසැලට",
+    pdpStock: "තොග ඇත (නැවුම්ව අසුරා ඇත)",
+    pdpSelectWeight: "තෝරාගත හැකි බර:",
+    pdpQuantity: "ප්‍රමාණය:",
+    btnBuyNowWhatsApp: "WhatsApp හරහා දැන්ම ඇනවුම් කරන්න",
+    pdpDescTitle: "නිෂ්පාදන විස්තරය සහ රස ගුණය",
+    pdpInfoTitle: "අමතර තොරතුරු",
+    pdpNutritionTitle: "පෝෂණ ගුණය (ග්‍රෑම් 100 කට)",
+    thWeight: "ශුද්ධ බර",
+    thIngredients: "අඩංගු ද්‍රව්‍ය",
+    thSugar: "සීනි",
+    thSalt: "ලුණු",
+    thFat: "මේදය",
+    thShelfLife: "කල් තබාගත හැකි කාලය",
+    thStorage: "ගබඩා කිරීම",
+    thOrigin: "නිෂ්පාදනය",
+    thRegNo: "ලියාපදිංචි අංකය",
+    storageText: "වියළි සිසිල් ස්ථානයක තබන්න. පිරිසිදු වියළි හැන්දක් භාවිතා කරන්න.",
+    ingredientsText: "නැවුම් දෙහි, ලුණු, සීනි, කෑලි මිරිස්.",
+    shelfLifeText: "නිෂ්පාදිත දින සිට මාස 12 කි.",
+    originText: "ගල්බොක්ක, හේවන්වත්ත, මහියංගනය, ශ්‍රී ලංකාව",
+    regNoText: "U/1/6/රෙදි/727",
+
+    showcaseKicker: "ආහාර රසගැන්වීම",
+    showcaseTitle: "ලුණු දෙහි ආහාරයට ගන්නා ආකාරය",
+    showcaseSubtitle: "ඕනෑම ශ්‍රී ලාංකීය කෑම වේලකට අපූර්ව දිව පිනවන රසයක්.",
+    showcaseCard1Title: "බත් සහ ව්‍යංජන සමඟ",
+    showcaseCard1Desc: "රතු බත්, පරිප්පු, සම්බෝල සමඟ ලුණු දෙහි කැබැල්ලක් එක්වූ විට ලැබෙන රසය අසමසමයි.",
+    showcaseCard2Title: "කොත්තු සහ ෆ්‍රයිඩ් රයිස්",
+    showcaseCard2Desc: "උණු උණු කොත්තුවකට හෝ බතකට දෙහි රසයේ සුවඳවත් ප්‍රබෝධයක් ගෙන දෙයි.",
+    showcaseCard3Title: "ආහාර රුචිය වඩවන ඔසුවක්",
+    showcaseCard3Desc: "ආහාර ජීර්ණය පහසු කරවන, බඩගින්න වඩවන සාම්ප්‍රදායික පාරම්පරික ගුණයක්.",
+
+    contactKicker: "අප අමතන්න",
+    contactTitle: "නිෂ්පාදකයන්ගෙන් සෘජුවම ඇනවුම් කරන්න",
+    contactPara: "දිවයින පුරා බෙදාහැරීම් සිදු කරනු ලැබේ. හෝටල්, අවන්හල් සහ තොග ඇනවුම් සඳහාද විමසන්න.",
+    contactPhoneLabel: "දුරකථන සහ WhatsApp",
+    contactEmailLabel: "විද්‍යුත් තැපෑල",
+    contactAddressLabel: "නිෂ්පාදනාගාරය",
+    footerAboutText: "DG PRODUCTS. මහියංගනයේ පාරම්පරික උසස්ම තත්ත්වයේ ලුණු දෙහි නිෂ්පාදනය.",
+    footerLinksTitle: "ප්‍රධාන සබැඳි",
+    footerHoursTitle: "වේලාවන් සහ බෙදාහැරීම",
+    footerHoursText: "සඳුදා සිට ඉරිදා දක්වා: පෙ.ව. 8:00 - ප.ව. 8:00. දිවයින පුරා කූරියර් සේවාව.",
+    footerCopyright: "© 2026 DG PRODUCTS. සියලුම හිමිකම් ඇවිරිණි.",
+
+    waOrderHello: "ආයුබෝවන් DG PRODUCTS! ඇනවුම් කිරීමට කැමැත්තෙමි:",
+    waItem: "නිෂ්පාදනය",
+    waWeight: "බර",
+    waQty: "ප්‍රමාණය",
+    waPrice: "ඒකක මිල",
+    waTotal: "මුළු මුදල",
+    waPrompt: "කරුණාකර ගෙවීම් විස්තර සහ මගේ ලිපිනයට බෙදාහැරීමේ විස්තර දන්වන්න.",
+
+    reviewsTitle: "පාරිභෝගික අදහස් සහ අත්දැකීම්",
+    reviewsBasedOn: "තහවුරු කළ පාරිභෝගික සමාලෝචන {count} ක් මත පදනම්ව",
+    btnWriteReview: "ඔබේ අදහස ලියන්න",
+    btnCancelReview: "අවලංගු කරන්න",
+    lblYourRating: "ඔබේ සමස්ත ඇගයීම:",
+    lblReviewerName: "ඔබගේ නම *",
+    lblReviewerLocation: "නගරය / ප්‍රදේශය (උදා: කොළඹ, නුවර, ගාල්ල)",
+    lblReviewTitle: "සමාලෝචන මාතෘකාව *",
+    lblReviewComment: "ඔබගේ අදහස / අත්දැකීම *",
+    btnSubmitReview: "අදහස යොමු කරන්න",
+    reviewPendingNotice: "ස්තූතියි! ඔබේ අදහස පරීක්ෂාව සඳහා යොමු කෙරුණු අතර අනුමැතියෙන් පසු වෙබ් අඩවියේ දිස්වනු ඇත.",
+    noReviewsYet: "මෙම නිෂ්පාදනයට තවමත් පාරිභෝගික අදහස් පළවී නොමැත. ඔබේ අත්දැකීම බෙදාගන්නා පළමුවැන්නා වන්න!",
+    verifiedBuyer: "තහවුරු කළ ගැනුම්කරු",
+    ratingStars: "තරු",
+    ratingBreakdown: "ඇගයීම් විග්‍රහය",
+    starRatingPrompt: "තරු ගණනක් තෝරන්න",
+
+    adminUnlockTitle: "DG Products පරිපාලක පිවිසුම",
+    adminPassPlaceholder: "මුරපදය ඇතුළත් කරන්න...",
+    adminBtnLogin: "ඇතුළු වන්න",
+    adminBtnCancel: "අවලංගු කරන්න",
+    adminDashboardTitle: "නිෂ්පාදන කළමනාකරණය",
+    adminTabProducts: "නිෂ්පාදන ලැයිස්තුව",
+    adminTabAdd: "නව නිෂ්පාදනයක් එක් කරන්න",
+    adminTabReviews: "පාරිභෝගික අදහස් කළමනාකරණය",
+    adminTabSettings: "වෙළඳසැල් සැකසුම්",
+    adminBtnAdd: "නිෂ්පාදනය සුරකින්න",
+    adminBtnSave: "වෙනස්කම් සුරකින්න",
+    adminBtnDelete: "මකන්න",
+    adminBtnEdit: "සංස්කරණය",
+    adminBtnReset: "මුල් නිෂ්පාදන යථා තත්ත්වයට පත් කරන්න",
+    adminLogout: "ඉවත් වන්න",
+    adminColImage: "ඡායාරූපය",
+    adminColName: "නිෂ්පාදනයේ නම",
+    adminColCategory: "වර්ගය",
+    adminColWeight: "බර",
+    adminColPrice: "මිල (රු.)",
+    adminColActions: "ක්‍රියාකාරකම්",
+    adminBtnApprove: "අනුමත කරන්න",
+    adminBtnReject: "ප්‍රතික්ෂේප කරන්න",
+    adminReviewApprovedToast: "අදහස අනුමත කර නිෂ්පාදන පිටුවේ පළ කරන ලදී!",
+    adminReviewRejectedToast: "අදහස ප්‍රතික්ෂේප කරන ලදී.",
+    adminReviewDeletedToast: "අදහස සාර්ථකව මකා දමන ලදී."
+  },
+
+  ta: {
+
+    navHome: "முகப்பு",
+    navAbout: "எங்களை பற்றி",
+    navShop: "பொருட்கள்",
+    navContact: "தொடர்புக்கு",
+    aboutReadMore: "எங்கள் முழு கதையைப் படியுங்கள்",
+    pdpNotFound: "மன்னிக்கவும், அந்த தயாரிப்பு கிடைக்கவில்லை.",
+    btnShareProduct: "இந்த தயாரிப்பைப் பகிரவும்",
+    shareText: "DG PRODUCTS இன் இந்த தயாரிப்பைப் பாருங்கள்:",
+    searchPlaceholder: "எலுமிச்சை ஊறுகாய் தேடவும்...",
+    searchButton: "தேடு",
+
+    brandName: "DG PRODUCTS",
+    heroKicker: "இலங்கையின் பாரம்பரிய சுவை",
+    heroTitlePrefix: "சுவையான தூய",
+    heroTitleAccent: "எலுமிச்சை ஊறுகாய்",
+    heroTitleSuffix: "& சிட்ரஸ் தயாரிப்புகள்",
+    heroSubtitle: "மஹியங்கனையின் புதிய எலுமிச்சை, இயற்கை கடல் உப்பு மற்றும் சுத்தமான வாசனை திரவியங்கள் கொண்டு வெயிலில் பதப்படுத்தப்பட்ட மிகச்சிறந்த ஊறுகாய்.",
+    btnShopNow: "ஊறுகாய் வாங்கவும்",
+    btnLearnMore: "எங்கள் பாரம்பரிய கதை",
+    heroTrustSun: "100% வெயிலில் பதப்படுத்தப்பட்டது",
+    heroTrustSpices: "தூய இலங்கை மசாலாக்கள்",
+    heroTrustNoChem: "செயற்கை ரசாயனங்கள் இல்லை",
+    heroBadgeTitle: "பாரம்பரிய மஹியங்கனை செய்முறை",
+    heroBadgeDesc: "கண்ணாடி ஜாடிகளில் பதப்படுத்தப்பட்டது",
+
+    aboutKicker: "எங்கள் வேர்கள்",
+    aboutTitle: "இலங்கையின் பாரம்பரிய ஊறுகாய் சுவையை உங்கள் இல்லத்திற்கு கொண்டு வருகிறோம்",
+    aboutPara1: "DG PRODUCTS மஹியங்கனையில் ஆரம்பிக்கப்பட்டு, எலுமிச்சை ஊறுகாயின் உண்மை சுவையை மக்களிடம் கொண்டு சேர்க்கும் நோக்குடன் செயல்படுகிறது.",
+    aboutPara2: "இயற்கை சூரிய ஒளியில் பதப்படுத்தி, தூய உப்பு, மிளகாய் தூள் சேர்த்து தயாரிக்கப்படும் எமது ஊறுகாய் ஒவ்வொரு சாப்பாட்டிற்கும் கூடுதல் சுவையூட்டுகிறது.",
+    aboutFeat1Title: "இயற்கை சூரிய ஒளி பதப்படுத்தல்",
+    aboutFeat1Desc: "பாரம்பரிய முறையில் சூரிய ஒளியில் மட்டுமே பக்குவமாக பதப்படுத்தப்படுகிறது.",
+    aboutFeat2Title: "பாதுகாப்பு ரசாயனங்கள் இல்லை",
+    aboutFeat2Desc: "எலுமிச்சை, உப்பு, சர்க்கரை மற்றும் மிளகாய் மட்டுமே பயன்படுத்தி பாதுகாப்பாக செய்யப்படுகிறது.",
+
+    shopKicker: "தயாரிப்பு பட்டியல்",
+    shopTitle: "கைவினை எலுமிச்சை ஊறுகாய் தொகுப்பு",
+    shopSubtitle: "அனைத்து தயாரிப்புகளும் சரியான எடையில் தரமாக சீல் செய்யப்பட்டு விநியோகிக்கப்படுகின்றன.",
+    categoriesLabel: "வகைகள்",
+    catAll: "அனைத்து தயாரிப்புகளும்",
+    catTraditional: "பாரம்பரிய எலுமிச்சை ஊறுகாய்",
+    catSpiced: "மசாலா எலுமிச்சை ஊறுகாய்",
+    catSpecial: "சிறப்பு ஜாடிகள் மற்றும் தொகுப்புகள்", catSambal: "சம்பல்கள்", catTea: "இலவங்கப்பட்டை தேநீர்", catSpice: "இலங்கை மசாலா", heroShopAll: "அனைத்து தயாரிப்புகள்",
+    heroTitle: "உண்மையான இலங்கை சுவை", heroSub: "மஹியங்கனையிலிருந்து லுனு தெஹி, சம்பல், இலவங்கப்பட்டை தேநீர் மற்றும் மசாலா. அனைத்து தயாரிப்புகளும் ஒரே இடத்தில்.",
+    showingCount: "{count} தயாரிப்புகள் காட்டப்படுகின்றன",
+    priceLabel: "விலை",
+    weightLabel: "எடை",
+    btnViewDetails: "விவரம் & ஆர்டர்",
+    emptyCatalog: "உங்கள் தேடலுக்கு ஏற்ற தயாரிப்புகள் எதுவும் இல்லை.",
+    resetSearch: "தேடலை நீக்கு",
+
+    pdpBack: "மீண்டும் கடைக்குச் செல்ல",
+    pdpStock: "இருப்பில் உள்ளது (புதிய சீலிங்)",
+    pdpSelectWeight: "கிடைக்கும் எடை:",
+    pdpQuantity: "அளவு:",
+    btnBuyNowWhatsApp: "WhatsApp மூலம் வாங்கவும்",
+    pdpDescTitle: "தயாரிப்பு விளக்கம் & சுவை விவரம்",
+    pdpInfoTitle: "கூடுதல் தகவல்கள்",
+    pdpNutritionTitle: "ஊட்டச்சத்து விவரம் (100 கிராமுக்கு)",
+    thWeight: "நிகர எடை",
+    thIngredients: "பொருட்கள்",
+    thSugar: "சர்க்கரை",
+    thSalt: "உப்பு",
+    thFat: "கொழுப்பு",
+    thShelfLife: "பயன்பாட்டு காலம்",
+    thStorage: "சேமிப்பு முறை",
+    thOrigin: "உற்பத்தி",
+    thRegNo: "பதிவு எண்",
+    storageText: "குளிர்ந்த, உலர்ந்த இடத்தில் வைக்கவும். எப்போதும் உலர்ந்த கரண்டியைப் பயன்படுத்தவும்.",
+    ingredientsText: "புதிய எலுமிச்சை, இயற்கை உப்பு, சர்க்கரை, மிளகாய் தூள்.",
+    shelfLifeText: "தயாரிப்பு தேதியிலிருந்து 12 மாதங்கள்",
+    originText: "கல்பொக்க, ஹேவன்வத்த, மஹியங்கனை, இலங்கை",
+    regNoText: "U/1/6/ரெதி/727",
+
+    showcaseKicker: "உணவு வழிகாட்டல்",
+    showcaseTitle: "எலுமிச்சை ஊறுகாயை எவ்வாறு சுவைப்பது",
+    showcaseSubtitle: "எந்தவொரு இலங்கை உணவுக்கும் பிரத்தியேக ருசியை அளிக்கும் ஊறுகாய்.",
+    showcaseCard1Title: "சோறு மற்றும் கறிகளுடன்",
+    showcaseCard1Desc: "பருப்பு சோறு மற்றும் தேங்காய் சம்பலுடன் ஒரு துண்டு ஊறுகாய் இணையற்ற சுவையைத் தரும்.",
+    showcaseCard2Title: "கொத்து மற்றும் பொரித்த சோறு",
+    showcaseCard2Desc: "சூடான கொத்து அல்லது ஃபிரைட் ரைஸுக்கு புத்துணர்ச்சியூட்டும் சிட்ரஸ் சுவை.",
+    showcaseCard3Title: "செரிமானத்திற்கான பாரம்பரிய மருந்து",
+    showcaseCard3Desc: "பசி தூண்டவும், செரிமானத்திற்கும் பயன்படும் கைமருந்து.",
+
+    contactKicker: "தொடர்பு கொள்ளுங்கள்",
+    contactTitle: "உற்பத்தியாளர்களிடமிருந்து நேரடியாக ஆர்டர் செய்யுங்கள்",
+    contactPara: "நாடு முழுவதும் பார்சல் மூலம் விநியோகம் செய்யப்படுகிறது. உணவகங்கள் மற்றும் மொத்த ஆர்டர்களுக்கு தொடர்பு கொள்ளவும்.",
+    contactPhoneLabel: "தொலைபேசி மற்றும் WhatsApp",
+    contactEmailLabel: "மின்னஞ்சல்",
+    contactAddressLabel: "உற்பத்தி கூடம்",
+    footerAboutText: "DG PRODUCTS. மஹியங்கனையின் தூய எலுமிச்சை ஊறுகாய் தயாரிப்பு.",
+    footerLinksTitle: "விரைவு இணைப்புகள்",
+    footerHoursTitle: "வேலை நேரம் & விநியோகம்",
+    footerHoursText: "திங்கள் - ஞாயிறு: காலை 8:00 - இரவு 8:00. நாடு முழுவதும் கூரியர் சேவை.",
+    footerCopyright: "© 2026 DG PRODUCTS. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+
+    waOrderHello: "வணக்கம் DG PRODUCTS! ஆர்டர் செய்ய விரும்புகிறேன்:",
+    waItem: "தயாரிப்பு",
+    waWeight: "எடை",
+    waQty: "அளவு",
+    waPrice: "விலை",
+    waTotal: "மொத்த தொகை",
+    waPrompt: "தயவுசெய்து கட்டணம் செலுத்தும் முறைகள் மற்றும் விநியோக விபரங்களை தெரிவிக்கவும்.",
+
+    reviewsTitle: "வாடிக்கையாளர் மதிப்பாய்வுகள் & அனுபவங்கள்",
+    reviewsBasedOn: "சரிபார்க்கப்பட்ட {count} வாடிக்கையாளர் மதிப்பாய்வுகளின் அடிப்படையில்",
+    btnWriteReview: "மதிப்பாய்வு எழுதுக",
+    btnCancelReview: "ரத்து செய்",
+    lblYourRating: "உங்கள் மதிப்பீடு:",
+    lblReviewerName: "உங்கள் முழுப் பெயர் *",
+    lblReviewerLocation: "நகரம் / நாடு (உதா: கொழும்பு, கண்டி)",
+    lblReviewTitle: "மதிப்பாய்வு தலைப்பு *",
+    lblReviewComment: "உங்கள் விரிவான கருத்து *",
+    btnSubmitReview: "மதிப்பாய்வை சமர்ப்பிக்கவும்",
+    reviewPendingNotice: "நன்றி! உங்கள் மதிப்பாய்வு நிர்வாகியின் ஒப்புதலுக்காக சமர்ப்பிக்கப்பட்டுள்ளது. சரிபார்க்கப்பட்ட பின் தோன்றும்.",
+    noReviewsYet: "இந்த தயாரிப்பிற்கு இதுவரை எந்த மதிப்பாய்வுகளும் இல்லை. உங்கள் அனுபவத்தை முதலில் பகிருங்கள்!",
+    verifiedBuyer: "சரிபார்க்கப்பட்ட வாங்குபவர்",
+    ratingStars: "நட்சத்திரங்கள்",
+    ratingBreakdown: "மதிப்பீடு விவரம்",
+    starRatingPrompt: "நட்சத்திர மதிப்பீட்டைத் தேர்ந்தெடுக்கவும்",
+
+    adminUnlockTitle: "DG Products நிர்வாகி உள்நுழைவு",
+    adminPassPlaceholder: "கடவுச்சொல்லை உள்ளிடவும்...",
+    adminBtnLogin: "உள்நுழையவும்",
+    adminBtnCancel: "ரத்து செய்",
+    adminDashboardTitle: "தயாரிப்பு மேலாளர்",
+    adminTabProducts: "தயாரிப்பு பட்டியல்",
+    adminTabAdd: "புதிய தயாரிப்பு சேர்",
+    adminTabReviews: "மதிப்பாய்வு மேலாண்மை",
+    adminTabSettings: "கடை அமைப்புகள்",
+    adminBtnAdd: "தயாரிப்பை சேமிக்கவும்",
+    adminBtnSave: "மாற்றங்களை சேமிக்கவும்",
+    adminBtnDelete: "அழி",
+    adminBtnEdit: "திருத்து",
+    adminBtnReset: "ஆரம்ப நிலைக்கு மாற்றுக",
+    adminLogout: "வெளியேறு",
+    adminColImage: "புகைப்படம்",
+    adminColName: "தயாரிப்பு பெயர்",
+    adminColCategory: "வகை",
+    adminColWeight: "எடை",
+    adminColPrice: "விலை (ரூ.)",
+    adminColActions: "செயல்கள்",
+    adminBtnApprove: "அங்கீகரி",
+    adminBtnReject: "நிராகரி",
+    adminReviewApprovedToast: "மதிப்பாய்வு அங்கீகரிக்கப்பட்டு வெளியிடப்பட்டது!",
+    adminReviewRejectedToast: "மதிப்பாய்வு நிராகரிக்கப்பட்டது.",
+    adminReviewDeletedToast: "மதிப்பாய்வு நிரந்தரமாக நீக்கப்பட்டது."
+  }
+};
+
+const DEFAULT_PRODUCTS = [
+  {
+    id: "dg-001",
+    name: {
+      en: "Traditional Ceylon Lunu Dehi (250g Jar)",
+      si: "සාම්ප්‍රදායික ගැමි ලුණු දෙහි (ග්‍රෑම් 250 බෝතලය)",
+      ta: "பாரம்பரிய இலங்கை எலுமிச்சை ஊறுகாய் (250g)"
+    },
+    category: "traditional",
+    priceLkr: 650,
+    weight: "250g",
+    image: IMAGE_PATHS.product1,
+    gallery: [IMAGE_PATHS.product1, IMAGE_PATHS.product2, IMAGE_PATHS.product3],
+    badge: "Bestseller",
+    description: {
+      en: "Our flagship authentic Ceylon Lunu Dehi made following the century-old Mahiyanganaya household formulation. Hand-picked mature limes are aged in solar brine and seasoned with fine chili flakes and raw sugar for unmatched tartness and digestive goodness.",
+      si: "මහියංගන පාරම්පරික වට්ටෝරුවට අනුව ගල් ලුණු, කෑලි මිරිස් සහ ස්වාභාවික හිරු එළියෙන් පදම් කළ සුවඳවත් ගැමි ලුණු දෙහි බෝතලය. බත් පතේ රසය දෙගුණ කරන අපේ ප්‍රධානතම නිෂ්පාදනය.",
+      ta: "மஹியங்கனையின் பாரம்பரிய செய்முறைப்படி வெயிலில் பதப்படுத்தப்பட்ட தூய எலுமிச்சை ஊறுகாய். எமது முன்னணி தயாரிப்பு."
+    },
+    additionalInfo: {
+      en: "Batch inspected under Registration No. U/1/6/රෙදි/727. Contains no added chemical preservatives, artificial food coloring, or vinegar. Glass jar sealed for safety.",
+      si: "ලියාපදිංචි අංක U/1/6/රෙදි/727 යටතේ නිපදවන ලදී. විනාකිරි හෝ කිසිදු කෘත්‍රිම කල්තබාගැනීමේ ද්‍රව්‍ය අඩංගු නොවේ.",
+      ta: "அங்கீகரிக்கப்பட்ட தயாரிப்பு U/1/6/ரெதி/727. வினிகர் அல்லது செயற்கை இரசாயனங்கள் சேர்க்கப்படவில்லை."
+    }
+  },
+  {
+    id: "dg-002",
+    name: {
+      en: "Spiced Ceylon Lunu Dehi with Curry Leaf & Spices (250g)",
+      si: "සුවඳ කුළුබඩු හා කරපිංචා මුසු තුනපහ ලුණු දෙහි (ග්‍රෑම් 250)",
+      ta: "கறிவேப்பிலை மற்றும் மசாலா கலந்த எலுமிச்சை ஊறுகாய் (250g)"
+    },
+    category: "spiced",
+    priceLkr: 750,
+    weight: "250g",
+    image: IMAGE_PATHS.product2,
+    gallery: [IMAGE_PATHS.product2, IMAGE_PATHS.product4, IMAGE_PATHS.product1],
+    badge: "Spiced Recipe",
+    description: {
+      en: "A rich, deeply aromatic version infused with roasted mustard seeds, Ceylon black pepper, fragrant curry leaves, and sun-dried red chili flakes. The perfect side accompaniment for savory biryani and ghee rice.",
+      si: "බැදගත් අබ, ගම්මිරිස් සහ කරපිංචා මිශ්‍රණයකින් සුවඳවත් කළ විශේෂ තුනපහ ලුණු දෙහි. බුරියානි, නെയ് බත් සහ බැදපු බත් සමඟ අගනා සංකලනයක්.",
+      ta: "வறுத்த கடுகு மற்றும் கறிவேப்பிலை நறுமணத்துடன் கூடிய மசாலா எலுமிச்சை ஊறுகாய்."
+    },
+    additionalInfo: {
+      en: "Naturally preserved in its own concentrated lime juice and salt brine. High in vitamin C and digestive enzymes.",
+      si: "ස්වාභාවික දෙහි යුෂයෙන් සහ ලුණු වතුරෙන් පමණක් පදම් කර ඇත.",
+      ta: "இயற்கை எலுமிச்சை சாற்றில் பதப்படுத்தப்பட்டது."
+    }
+  },
+  {
+    id: "dg-003",
+    name: {
+      en: "Artisanal Mahiyanganaya Salted Lime Pickle (500g Large Jar)",
+      si: "මහියංගන පාරම්පරික ලුණු දෙහි විශාල බෝතලය (ග්‍රෑම් 500)",
+      ta: "மஹியங்கனை பாரம்பரிய எலுமிச்சை ஊறுகாய் (500g)"
+    },
+    category: "traditional",
+    priceLkr: 1200,
+    weight: "500g",
+    image: IMAGE_PATHS.product3,
+    gallery: [IMAGE_PATHS.product3, IMAGE_PATHS.product5, IMAGE_PATHS.product1],
+    badge: "Value Jar",
+    description: {
+      en: "Double the quantity for genuine Lunu Dehi connoisseurs and family households. Each jar contains whole cured lime quarters soaked in deep amber pickle syrup that melts on your tongue.",
+      si: "පවුලේ පරිභෝජනය සඳහා වඩාත් වාසිදායක ග්‍රෑම් 500 විශාල බෝතලය. මනාව පදම් වූ දෙහි බෑ සහිතයි.",
+      ta: "குடும்ப பயன்பாட்டிற்கான 500 கிராம் பெரிய ஜாடி ஊறுகாய்."
+    },
+    additionalInfo: {
+      en: "Weight: 500g Net. 100% biodegradable and recyclable glass container. Manufactured by DG Products, Hewanwatta.",
+      si: "ශුද්ධ බර ග්‍රෑම් 500 කි. වීදුරු බෝතලයක සුරක්ෂිතව අසුරා ඇත.",
+      ta: "நிகர எடை 500 கிராம். கண்ணாடி ஜாடியில் அடைக்கப்பட்டது."
+    }
+  },
+  {
+    id: "dg-004",
+    name: {
+      en: "Country Harvest Aged Lime Segments (350g Rustic Jar)",
+      si: "ගැමි අස්වැන්නේ අව්වේ වේලූ පදම් දෙහි (ග්‍රෑම් 350)",
+      ta: "நாட்டு எலுமிச்சை பாரம்பரிய ஊறுகாய் (350g)"
+    },
+    category: "traditional",
+    priceLkr: 850,
+    weight: "350g",
+    image: IMAGE_PATHS.product4,
+    gallery: [IMAGE_PATHS.product4, IMAGE_PATHS.product7, IMAGE_PATHS.product2],
+    badge: "Country Harvest",
+    description: {
+      en: "Harvested from smallholder village orchards in Mahiyanganaya, these limes are hand-slit, stuffed with solar sea salt, and solar-cured for over 45 days until dark, succulent, and intensely fragrant.",
+      si: "දින 45කට අධික කාලයක් අව්වේ තබා පදම් කරගත් තද පැහැති ගැමි ලුණු දෙහි. සැබෑ ගමේ රසය.",
+      ta: "45 நாட்களுக்கு மேல் வெயிலில் பக்குவமாக பதப்படுத்தப்பட்ட ஊறுகாய்."
+    },
+    additionalInfo: {
+      en: "Ingredients: Limes, salt, sugar, chili flakes. Sodium content 7.36g per 100g. Sugar content 0.07g per 100g.",
+      si: "අඩංගු ද්‍රව්‍ය: දෙහි, ලුණු, සීනි, කෑලි මිරිස්. ග්‍රෑම් 100ක ලුණු ප්‍රමාණය ග්‍රෑම් 7.36 කි.",
+      ta: "பொருட்கள்: எலுமிச்சை, உப்பு, சர்க்கரை, மிளகாய் தூள்."
+    }
+  },
+  {
+    id: "dg-005",
+    name: {
+      en: "Twin Gift Box: Traditional & Spiced Lunu Dehi (2 x 250g)",
+      si: "විශේෂ ද්විත්ව ඇසුරුම: සාම්ප්‍රදායික සහ තුනපහ දෙහි (ග්‍රෑම් 250 x 2)",
+      ta: "இரட்டை பரிசு தொகுப்பு: பாரம்பரியம் & மசாலா (2 x 250g)"
+    },
+    category: "special",
+    priceLkr: 1350,
+    weight: "500g (Twin)",
+    image: IMAGE_PATHS.product5,
+    gallery: [IMAGE_PATHS.product5, IMAGE_PATHS.product6, IMAGE_PATHS.product1],
+    badge: "Gift Set",
+    description: {
+      en: "The best of both worlds in a premium twin pack. Includes 1 jar of Classic Lunu Dehi (250g) and 1 jar of Spiced Seasoned Lunu Dehi (250g). Popular as an authentic Sri Lankan gift for friends and overseas relatives.",
+      si: "සාම්ප්‍රදායික ලුණු දෙහි බෝතලයක් සහ තුනපහ ලුණු දෙහි බෝතලයක් ඇතුළත් සුවිශේෂී ඇසුරුම.",
+      ta: "இரண்டு விதமான சுவைகளும் அடங்கிய சிறப்பு இரட்டை பேக்."
+    },
+    additionalInfo: {
+      en: "Comes packed in secure outer carton suitable for islandwide shipping or carry-on travel gifts.",
+      si: "තෑගි දීමට සහ සංචාර සඳහා වඩාත් සුදුසු ඇසුරුමකි.",
+      ta: "பயணங்களுக்கும் பரிசளிப்பதற்கும் ஏற்றது."
+    }
+  },
+  {
+    id: "dg-006",
+    name: {
+      en: "Family Feast Master Jar - Aged Lunu Dehi (1000g / 1kg)",
+      si: "පවුලේ මහා භෝජන ලුණු දෙහි ජම්බෝ බෝතලය (කිලෝග්‍රෑම් 1)",
+      ta: "குடும்ப விருந்து எலுமிச்சை ஊறுகாய் பெரு ஜாடி (1000g / 1kg)"
+    },
+    category: "special",
+    priceLkr: 2250,
+    weight: "1000g (1kg)",
+    image: IMAGE_PATHS.product6,
+    gallery: [IMAGE_PATHS.product6, IMAGE_PATHS.product3, IMAGE_PATHS.product7],
+    badge: "1kg Master Jar",
+    description: {
+      en: "Heavy-duty 1 kilogram catering and family jar designed for regular households, dining rooms, caterers, and food service enthusiasts who cannot dine without authentic Mahiyanganaya lunu dehi.",
+      si: "කෑම මේසයට සහ උත්සව අවස්ථාවලට වඩාත් සුදුසු කිලෝ 1 යෝධ ලුණු දෙහි බෝතලය. ඉහළම ලාභය.",
+      ta: "ஹோட்டல்கள் மற்றும் பெரிய குடும்பங்களுக்கான 1 கிலோ ஜாடி ஊறுகாய்."
+    },
+    additionalInfo: {
+      en: "Net Weight 1,000g. Shelf life: 12 months in ambient pantry conditions.",
+      si: "ශුද්ධ බර ග්‍රෑම් 1,000 කි. සාමාන්‍ය කාමර උෂ්ණත්වයේ මාස 12 ක් තබාගත හැක.",
+      ta: "நிகர எடை 1000 கிராம். 12 மாதங்கள் வரை கெடாமல் இருக்கும்."
+    }
+  },
+  {
+    id: "dg-007",
+    name: {
+      en: "Gourmet Chili Infused Lime Pickle (400g)",
+      si: "රතු මිරිස් සැර පිරි විශේෂ රසැති ලුණු දෙහි (ග්‍රෑම් 400)",
+      ta: "காரசாரமான சிறப்பு மிளகாய் எலுமிச்சை ஊறுகாய் (400g)"
+    },
+    category: "spiced",
+    priceLkr: 980,
+    weight: "400g",
+    image: IMAGE_PATHS.product7,
+    gallery: [IMAGE_PATHS.product7, IMAGE_PATHS.product2, IMAGE_PATHS.product4],
+    badge: "Extra Zesty",
+    description: {
+      en: "Crafted for lovers of vibrant fiery spice. Coarsely ground village chili pods are layered between tenderized whole limes for an exhilarating explosion of warmth and sour tang.",
+      si: "සැර ප්‍රිය කරන ඔබ වෙනුවෙන්ම සැකසූ, ගමේ මිරිස් කරල් මනාව මුසු වූ විශේෂ ලුණු දෙහි.",
+      ta: "காரமான சுவையை விரும்புவோருக்கான பிரத்தியேக மிளகாய் ஊறுகாய்."
+    },
+    additionalInfo: {
+      en: "100% natural, no synthetic colors or emulsifiers. High in natural citric antioxidants.",
+      si: "ස්වාභාවික ද්‍රව්‍ය පමණි. කිසිදු රසායනික වර්ණක නැත.",
+      ta: "இயற்கையானது, செயற்கை வண்ணங்கள் எதுவும் இல்லை."
+    }
+  }
+];
+
+
+/* ===== Product line-up additions (PRICES ARE PLACEHOLDERS: edit here or in the admin dashboard) ===== */
+const NEW_PRODUCTS = [
+  {
+    id: "dg-008", name: { en: "Spicy Chicken Sambal", si: "සැර කුකුළු මස් සම්බෝල", ta: "காரமான கோழி சம்பல்" },
+    category: "sambal", priceLkr: 850, weight: "200g", image: IMAGE_PATHS.chickenSambal,
+    gallery: [IMAGE_PATHS.chickenSambal, IMAGE_PATHS.product1, IMAGE_PATHS.product2],
+    badge: "Rich & Spicy", palette: "chicken", featured: true,
+    description: { en: "A bold, spicy chicken sambal made in the Sri Lankan style. Enjoy it with rice, bread, string hoppers or roti.", si: "ශ්‍රී ලාංකික රසට සකස් කළ සැර කුකුළු මස් සම්බෝල. බත්, පාන්, ඉඳිආප්ප හෝ රොටි සමඟ රස විඳින්න.", ta: "இலங்கை பாணியில் தயாரிக்கப்பட்ட காரமான கோழி சம்பல். சோறு, பாண், இடியாப்பம் அல்லது ரொட்டியுடன் சுவையுங்கள்." },
+    additionalInfo: { en: "Full ingredients, batch and expiry details are printed on the pack label.", si: "සම්පූර්ණ අමුද්‍රව්‍ය, කාණ්ඩ අංක සහ කල් ඉකුත්වන දිනය ඇසුරුමේ ලේබලයේ සඳහන් වේ.", ta: "முழுமையான பொருட்கள், தொகுதி மற்றும் காலாவதி விவரங்கள் பொதியின் லேபிளில் அச்சிடப்பட்டுள்ளன." }
+  },
+  {
+    id: "dg-009", name: { en: "Traditional Fish Sambal", si: "සාම්ප්‍රදායික මාළු සම්බෝල", ta: "பாரம்பரிய மீன் சம்பல்" },
+    category: "sambal", priceLkr: 950, weight: "200g", image: IMAGE_PATHS.fishSambal,
+    gallery: [IMAGE_PATHS.fishSambal, IMAGE_PATHS.product1, IMAGE_PATHS.product2],
+    badge: "Traditional & Rich", palette: "fish", featured: true,
+    description: { en: "A rich, traditional Sri Lankan fish sambal with deep, earthy flavour. Lovely with rice, bread or as a sandwich spread.", si: "ගැඹුරු, සාම්ප්‍රදායික රසයෙන් යුත් ශ්‍රී ලාංකික මාළු සම්බෝල. බත්, පාන් සමඟ හෝ සැන්ඩ්විච් සඳහා ඉතා යෝග්‍යයි.", ta: "ஆழமான பாரம்பரிய சுவை கொண்ட இலங்கை மீன் சம்பல். சோறு, பாண் உடன் அல்லது சாண்ட்விச்சிற்கு ஏற்றது." },
+    additionalInfo: { en: "Full ingredients, batch and expiry details are printed on the pack label.", si: "සම්පූර්ණ අමුද්‍රව්‍ය, කාණ්ඩ අංක සහ කල් ඉකුත්වන දිනය ඇසුරුමේ ලේබලයේ සඳහන් වේ.", ta: "முழுமையான பொருட்கள், தொகுதி மற்றும் காலாவதி விவரங்கள் பொதியின் லேபிளில் அச்சிடப்பட்டுள்ளன." }
+  },
+  {
+    id: "dg-010", name: { en: "Ceylon Cinnamon Tea", si: "සිලෝන් කුරුඳු තේ", ta: "இலங்கை இலவங்கப்பட்டை தேநீர்" },
+    category: "tea", priceLkr: 750, weight: "50g", image: IMAGE_PATHS.cinnamonTea,
+    gallery: [IMAGE_PATHS.cinnamonTea, IMAGE_PATHS.product1, IMAGE_PATHS.product2],
+    badge: "Premium & Elegant", palette: "tea", featured: true,
+    description: { en: "Ceylon cinnamon tea for a warm, soothing cup with a naturally sweet, spicy aroma. Serve hot or over ice.", si: "උණුසුම්, සුවදායක කුරුඳු තේ කෝප්පයක් සඳහා සිලෝන් කුරුඳු තේ. උණුවෙන් හෝ අයිස් සමඟ පානය කරන්න.", ta: "இயற்கையான இனிப்பு மணத்துடன் கூடிய இலங்கை இலவங்கப்பட்டை தேநீர். சூடாகவோ ஐஸுடனோ பருகலாம்." },
+    additionalInfo: { en: "Full ingredients, batch and expiry details are printed on the pack label.", si: "සම්පූර්ණ අමුද්‍රව්‍ය, කාණ්ඩ අංක සහ කල් ඉකුත්වන දිනය ඇසුරුමේ ලේබලයේ සඳහන් වේ.", ta: "முழுமையான பொருட்கள், தொகுதி மற்றும் காலாவதி விவரங்கள் பொதியின் லேபிளில் அச்சிடப்பட்டுள்ளன." }
+  },
+  {
+    id: "dg-011", name: { en: "Pure Ceylon Cinnamon Powder", si: "පිරිසිදු සිලෝන් කුරුඳු කුඩු", ta: "தூய இலங்கை இலவங்கப்பட்டை தூள்" },
+    category: "spice", priceLkr: 650, weight: "100g", image: IMAGE_PATHS.cinnamonPowder,
+    gallery: [IMAGE_PATHS.cinnamonPowder, IMAGE_PATHS.product1, IMAGE_PATHS.product2],
+    badge: "Natural & Premium", palette: "cinnamon", featured: true,
+    description: { en: "Pure Ceylon cinnamon, finely ground for baking, desserts, tea and curries.", si: "බේකරි, අතුරුපස, තේ සහ ව්‍යංජන සඳහා සියුම්ව අඹරා ගත් පිරිසිදු සිලෝන් කුරුඳු කුඩු.", ta: "பேக்கிங், இனிப்புகள், தேநீர் மற்றும் கறிகளுக்கு நுண்ணிய தூளாக அரைக்கப்பட்ட தூய இலங்கை இலவங்கப்பட்டை." },
+    additionalInfo: { en: "Full ingredients, batch and expiry details are printed on the pack label.", si: "සම්පූර්ණ අමුද්‍රව්‍ය, කාණ්ඩ අංක සහ කල් ඉකුත්වන දිනය ඇසුරුමේ ලේබලයේ සඳහන් වේ.", ta: "முழுமையான பொருட்கள், தொகுதி மற்றும் காலாவதி விவரங்கள் பொதியின் லேபிளில் அச்சிடப்பட்டுள்ளன." }
+  }
+];
+DEFAULT_PRODUCTS.forEach(p => { p.palette = p.palette || "lime"; });
+DEFAULT_PRODUCTS[0].featured = true;           // Ceylon Lime Pickle (Lunu Dehi) leads the banner
+DEFAULT_PRODUCTS.push(...NEW_PRODUCTS);
+
+const DEFAULT_REVIEWS = [
+  {
+    id: "rev-001",
+    productId: "dg-001",
+    reviewerName: "Chaminda Senanayake",
+    location: "Kandy",
+    rating: 5,
+    title: "The true Mahiyanganaya village taste!",
+    comment: "I have tried many store-bought lime pickles in Colombo, but none compare to DG Products. The limes are sun-ripened and deeply marinated without any artificial chemical aftertaste. Perfect with red rice and dhal!",
+    date: "October 14, 2026",
+    status: "approved"
+  },
+  {
+    id: "rev-002",
+    productId: "dg-001",
+    reviewerName: "Dilrukshi Perera",
+    location: "Nugegoda",
+    rating: 5,
+    title: "Authentic homemade texture & aroma",
+    comment: "Reminds me of my grandmother's clay pot lunu dehi. Rich, tart, and soothing for digestion after a heavy rice meal. Ordered 3 more jars via WhatsApp!",
+    date: "October 20, 2026",
+    status: "approved"
+  },
+  {
+    id: "rev-003",
+    productId: "dg-002",
+    reviewerName: "Rizwan Mohamed",
+    location: "Colombo",
+    rating: 5,
+    title: "Best accompaniment for Biryani & Ghee Rice",
+    comment: "The roasted mustard seeds and curry leaves make all the difference. Adds an amazing savory kick to biryani and fried rice. Highly recommend!",
+    date: "October 19, 2026",
+    status: "approved"
+  },
+  {
+    id: "rev-004",
+    productId: "dg-003",
+    reviewerName: "Suresh Nadarajah",
+    location: "Jaffna",
+    rating: 5,
+    title: "Superb value and long-lasting quality",
+    comment: "Large juicy lime quarters that melt in your mouth. The 500g jar is ideal for regular family dining. Fast delivery to Jaffna via courier.",
+    date: "October 16, 2026",
+    status: "approved"
+  },
+  {
+    id: "rev-005",
+    productId: "dg-004",
+    reviewerName: "Anoma Wickramasinghe",
+    location: "Kurunegala",
+    rating: 5,
+    title: "Natural solar salt curing at its finest",
+    comment: "You can tell these were aged in solar brine without vinegar. Pure natural ingredients, perfect balance of salt and chili flakes.",
+    date: "October 22, 2026",
+    status: "approved"
+  },
+  {
+    id: "rev-006",
+    productId: "dg-005",
+    reviewerName: "Kavinda Bandara",
+    location: "Melbourne, Australia",
+    rating: 5,
+    title: "Great gift for overseas relatives",
+    comment: "Ordered through WhatsApp to be sent to my parents in Gampaha before my visit. Beautiful presentation, leak-proof jars, and excellent customer care.",
+    date: "October 24, 2026",
+    status: "approved"
+  },
+  {
+    id: "rev-007",
+    productId: "dg-001",
+    reviewerName: "Nalin Karunaratne",
+    location: "Galle",
+    rating: 5,
+    title: "Fresh batch just arrived",
+    comment: "Packaging was pristine and the flavor is exceptionally fresh. Highly recommend ordering in bulk for restaurants.",
+    date: "October 25, 2026",
+    status: "pending"
+  }
+];

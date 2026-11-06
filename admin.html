@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | DG PRODUCTS</title>
+    <meta name="description" content="DG PRODUCTS administration." />
+    <meta property="og:title" content="Admin | DG PRODUCTS" />
+    <meta property="og:description" content="DG PRODUCTS administration." />
+    <!-- og:image: paste your full Cloudinary logo URL here -->
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="data:," />
+    <meta name="theme-color" content="#86151B" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <noscript><style>#page-loader, #intro-splash { display: none !important; }</style></noscript>
+    <script defer src="js/data.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/admin.js"></script>
+  </head>
+  <body class="admin-body" data-page="admin" data-layout="none">
+    <div id="page-loader" aria-hidden="true">
+      <div class="pl-logo">
+        <div class="pl-ring"></div>
+        <img src="images/logo.png" alt="" onerror="this.style.display='none'" />
+      </div>
+      <div class="pl-bar"></div>
+    </div>
+
+    <div id="admin-login-modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="admin-login-heading">
+      <div class="admin-login-modal">
+        <div class="admin-modal-header">
+          <h3 id="admin-login-heading" data-i18n="adminUnlockTitle">DG Products Administrator Login</h3>
+        </div>
+        <div class="admin-modal-body">
+          <div class="admin-security-note">
+            <strong>Security Notice:</strong> Client-side password protection is implemented for store owner operational convenience, not cryptographic server security.
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="admin-password-input">Admin Password</label>
+            <input
+              type="password"
+              id="admin-password-input"
+              class="form-control"
+              placeholder="Enter admin password..."
+              data-i18n-placeholder="adminPassPlaceholder"
+              autocomplete="current-password"
+            />
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button id="admin-login-cancel-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
+            <button id="admin-login-submit-btn" class="btn-primary" data-i18n="adminBtnLogin">Unlock Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin-dashboard-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="admin-dashboard-heading">
+      <div class="admin-dashboard-modal">
+        <div class="dashboard-header">
+          <div class="dashboard-title-box">
+            <span class="dashboard-title-icon"><i data-icon="settings" data-size="24"></i></span>
+            <h3 id="admin-dashboard-heading" data-i18n="adminDashboardTitle">DG Products Catalog Manager</h3>
+          </div>
+          <div class="dashboard-toolbar">
+            <button id="admin-new-product-btn" class="btn-secondary" style="color:#ffffff; border-color:rgba(255,255,255,0.4); background:transparent;">
+              <i data-icon="plus" data-size="16"></i> Add Product
+            </button>
+            <button id="admin-close-dashboard-btn" class="btn-secondary" style="color:#ffffff; border-color:rgba(255,255,255,0.4); background:transparent;">
+              <i data-icon="x" data-size="16"></i> Close
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-tabs">
+          <button class="dashboard-tab-btn active" data-tab="list" data-i18n="adminTabProducts">Inventory List</button>
+          <button class="dashboard-tab-btn" data-tab="form" id="admin-form-tab-btn" data-i18n="adminTabAdd">Add / Edit Product</button>
+          <button class="dashboard-tab-btn" data-tab="reviews" id="admin-reviews-tab-btn">
+            <span data-i18n="adminTabReviews">Reviews &amp; Moderation</span>
+            <span id="admin-pending-review-badge" class="admin-badge-count" style="display:none;">0</span>
+          </button>
+        </div>
+
+        <div class="dashboard-content-area">
+
+          <div id="admin-tab-list-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <p style="font-size:0.88rem; color:var(--color-text-muted);">
+                Changes are saved in this browser only (LocalStorage). Moving the catalogue to Firebase will make them live for every visitor.
+              </p>
+              <button id="admin-reset-catalog-btn" class="btn-secondary" style="font-size:0.8rem; padding:8px 12px;" data-i18n="adminBtnReset">
+                Restore Factory Catalog
+              </button>
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="adminColImage">Photo</th>
+                    <th data-i18n="adminColName">Product Name</th>
+                    <th data-i18n="adminColCategory">Category</th>
+                    <th data-i18n="adminColWeight">Weight</th>
+                    <th data-i18n="adminColPrice">Price (LKR)</th>
+                    <th data-i18n="adminColActions">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-table-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="admin-tab-form-content" style="display:none;">
+            <h4 id="admin-form-title" style="font-size:1.1rem; font-weight:700; margin-bottom:20px; color:var(--color-brand-deep);">
+              Add New Product
+            </h4>
+
+            <form id="admin-product-edit-form">
+              <input type="hidden" id="form-prod-id" />
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label" for="form-prod-name-en">Product Name (English) *</label>
+                  <input type="text" id="form-prod-name-en" class="form-control" required placeholder="e.g. Traditional Ceylon Lunu Dehi (250g Jar)" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-name-si">Product Name (Sinhala)</label>
+                  <input type="text" id="form-prod-name-si" class="form-control" placeholder="e.g. සාම්ප්‍රදායික ගැමි ලුණු දෙහි (ග්‍රෑම් 250)" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-name-ta">Product Name (Tamil)</label>
+                  <input type="text" id="form-prod-name-ta" class="form-control" placeholder="e.g. பாரம்பரிய இலங்கை எலுமிச்சை ஊறுகாய்" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-price">Price in LKR (Rs.) *</label>
+                  <input type="number" id="form-prod-price" class="form-control" required min="1" step="1" placeholder="e.g. 650" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-weight">Weight Specification *</label>
+                  <input type="text" id="form-prod-weight" class="form-control" required placeholder="e.g. 250g, 500g, 1kg" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-category">Category *</label>
+                  <select id="form-prod-category" class="form-control">
+                    <option value="traditional">Traditional Lunu Dehi</option>
+                    <option value="spiced">Spiced & Seasoned Pickle</option>
+                    <option value="special">Value Packs & Gift Jars</option>
+                    <option value="sambal">Sambals</option>
+                    <option value="tea">Cinnamon Tea</option>
+                    <option value="spice">Ceylon Spices</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-image">Image (Cloudinary Public ID or URL)</label>
+                  <input type="text" id="form-prod-image" class="form-control" placeholder="e.g. dg/chicken-sambal  or  https://res.cloudinary.com/..." />
+                </div>
+
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label" for="form-prod-desc-en">Description (English)</label>
+                  <textarea id="form-prod-desc-en" class="form-control" rows="3" placeholder="Taste profile, sun-curing details, food pairings..."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-desc-si">Description (Sinhala)</label>
+                  <textarea id="form-prod-desc-si" class="form-control" rows="2" placeholder="සිංහල විස්තරය..."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-desc-ta">Description (Tamil)</label>
+                  <textarea id="form-prod-desc-ta" class="form-control" rows="2" placeholder="தமிழ் விளக்கம்..."></textarea>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-tag">Tag line (shown on cards &amp; banner)</label>
+                  <input type="text" id="form-prod-tag" class="form-control" placeholder="e.g. Rich &amp; Spicy" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="form-prod-palette">Colour identity preset</label>
+                  <select id="form-prod-palette" class="form-control">
+                    <option value="lime" selected>Lime Pickle (Green, Brown, Cream, Gold)</option>
+                    <option value="chicken">Chicken Sambal (Chili Red, Deep Brown, Cream)</option>
+                    <option value="fish">Fish Sambal (Deep Brown, Rust Red, Cream)</option>
+                    <option value="tea">Cinnamon Tea (Gold, Cream, Cinnamon Brown)</option>
+                    <option value="cinnamon">Cinnamon Powder (Cinnamon Brown, Tan, Cream, Gold)</option>
+                    <option value="custom">Custom colours</option>
+                  </select>
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label">Product colours: main · secondary · cream tint · accent</label>
+                  <div class="palette-inputs">
+                    <input type="color" id="form-prod-c1" value="#3F6B2B" /><input type="color" id="form-prod-c2" value="#6B4423" />
+                    <input type="color" id="form-prod-c3" value="#F6EDD2" /><input type="color" id="form-prod-c4" value="#D5AD62" />
+                  </div>
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label" style="display:flex;gap:8px;align-items:center;"><input type="checkbox" id="form-prod-featured" checked /> Show in the home banner</label>
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label" for="form-prod-addinfo-en">Additional Info & Ingredients</label>
+                  <textarea id="form-prod-addinfo-en" class="form-control" rows="2" placeholder="Registration, batch, ingredients, storage..."></textarea>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+                <button type="button" id="admin-cancel-form-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
+                <button type="submit" class="btn-primary" data-i18n="adminBtnSave">Save Product</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="admin-tab-reviews-content" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+              <div>
+                <h4 style="font-size:1.1rem; font-weight:700; color:var(--color-brand-deep);" data-i18n="adminTabReviews">
+                  Customer Reviews &amp; Moderation
+                </h4>
+                <p style="font-size:0.85rem; color:var(--color-text-muted); margin-top:2px;">
+                  Review customer feedback, approve genuine testimonials, or reject spam before publishing to product pages.
+                </p>
+              </div>
+
+              <div class="admin-review-filters" role="group">
+                <button class="review-filter-btn active" data-filter="all">All (<span id="count-all-reviews">0</span>)</button>
+                <button class="review-filter-btn" data-filter="pending">Pending (<span id="count-pending-reviews">0</span>)</button>
+                <button class="review-filter-btn" data-filter="approved">Approved (<span id="count-approved-reviews">0</span>)</button>
+                <button class="review-filter-btn" data-filter="rejected">Rejected (<span id="count-rejected-reviews">0</span>)</button>
+              </div>
+            </div>
+
+            <div id="admin-reviews-list-container" class="admin-reviews-list">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="app-toast-notification" class="app-toast"></div>
+  </body>
+</html>

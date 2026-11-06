@@ -3,18 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DG Products - Authentic Ceylon Lime & Pickle (lenudehi.lk)</title>
-    <meta name="description" content="DG PRODUCTS - Traditional Sri Lankan Lunu Dehi, lime pickles, and citrus preserves from Mahiyanganaya. 'ekak hadaganna' - lenudehi.lk." />
-    <meta property="og:title" content="DG Products - Authentic Ceylon Lime & Pickle" />
-    <meta property="og:description" content="Traditional Sri Lankan Lunu Dehi and lime creations from Mahiyanganaya. 'ekak hadaganna'." />
-    <meta property="og:image" content="images/logo.png" />
+    <title>DG PRODUCTS | Ceylon Lime Pickle (Lunu Dehi), Sambals &amp; Cinnamon</title>
+    <meta name="description" content="DG PRODUCTS - Traditional Sri Lankan Lunu Dehi, lime pickles, sambals and cinnamon from Mahiyanganaya." />
+    <meta property="og:title" content="DG PRODUCTS | Ceylon Lime Pickle (Lunu Dehi), Sambals &amp; Cinnamon" />
+    <meta property="og:description" content="DG PRODUCTS - Traditional Sri Lankan Lunu Dehi, lime pickles, sambals and cinnamon from Mahiyanganaya." />
+    <!-- og:image: paste your full Cloudinary logo URL here -->
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" type="image/png" href="images/logo.png" />
-
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/png" href="data:," />
+    <meta name="theme-color" content="#86151B" />
+    <script>try { if (sessionStorage.getItem("dg_splash_seen")) document.documentElement.classList.add("no-splash"); } catch (e) {}</script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <noscript><style>#page-loader, #intro-splash { display: none !important; }</style></noscript>
+    <script defer src="js/data.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/home.js"></script>
   </head>
-  <body>
+  <body data-page="home">
+    <div id="page-loader" aria-hidden="true">
+      <div class="pl-logo">
+        <div class="pl-ring"></div>
+        <img src="images/logo.png" alt="" onerror="this.style.display='none'" />
+      </div>
+      <div class="pl-bar"></div>
+    </div>
 
     <div id="intro-splash" role="dialog" aria-modal="true" aria-label="Brand Introduction">
       <div class="splash-content">
@@ -22,14 +34,12 @@
           <div class="splash-logo-ring"></div>
           <div class="splash-logo-glow"></div>
           <img
-            src="images/logo.png"
+            data-cld="logoPng" data-w="900"
             alt="DG PRODUCTS Official Emblem"
             class="splash-logo-img"
           />
         </div>
         <h1 class="splash-brand-title">DG PRODUCTS</h1>
-        <p class="splash-tagline">“ekak hadaganna”</p>
-        <span class="splash-domain">lenudehi.lk</span>
 
         <div class="splash-loader-bar">
           <div class="splash-loader-progress"></div>
@@ -41,155 +51,38 @@
       </div>
     </div>
 
-    <header class="site-header">
-      <div class="container header-container">
+    <div id="site-header"></div>
 
-        <a href="#home" class="brand-lockup secret-admin-trigger" title="DG Products (Tap 5 times for Admin)">
-          <img
-            src="images/logo.png"
-            alt="DG PRODUCTS Logo"
-            class="brand-logo-img"
-          />
-          <div class="brand-text-block">
-            <span class="brand-name">DG PRODUCTS</span>
-            <span class="brand-domain-tagline">
-              <span>ලුණුදෙහි.lk</span>
-            </span>
-          </div>
-        </a>
-
-        <nav class="main-nav" aria-label="Primary Site Navigation">
-          <a href="#home" class="nav-link active" data-i18n="navHome">Home</a>
-          <a href="#about" class="nav-link" data-i18n="navAbout">About Us</a>
-          <a href="#shop" class="nav-link" data-i18n="navShop">Shop</a>
-          <a href="#contact" class="nav-link" data-i18n="navContact">Contact Us</a>
-        </nav>
-
-        <div class="header-actions">
-          <button id="header-search-toggle" class="action-btn" aria-label="Toggle Search Bar" title="Search Products">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </button>
-
-          <div class="selector-pill" role="group" aria-label="Language Selector">
-            <button class="selector-option lang-opt-btn" data-lang="si" title="සිංහල">සිංහල</button>
-            <button class="selector-option lang-opt-btn active" data-lang="en" title="English">EN</button>
-            <button class="selector-option lang-opt-btn" data-lang="ta" title="தமிழ்">தமிழ்</button>
-          </div>
-
-          <div class="selector-pill" role="group" aria-label="Currency Selector">
-            <button class="selector-option curr-opt-btn active" data-curr="LKR" title="Sri Lankan Rupee">LKR</button>
-            <button class="selector-option curr-opt-btn" data-curr="USD" title="US Dollar">USD</button>
-          </div>
-
-          <button id="mobile-menu-btn" class="action-btn mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-drawer" title="Menu">
-            <i data-icon="menu" data-size="20"></i>
-          </button>
-        </div>
-
-      </div>
-
-      <nav id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Mobile Navigation">
-        <div class="container">
-          <a href="#home" class="mobile-nav-link" data-i18n="navHome">Home</a>
-          <a href="#about" class="mobile-nav-link" data-i18n="navAbout">About Us</a>
-          <a href="#shop" class="mobile-nav-link" data-i18n="navShop">Shop</a>
-          <a href="#contact" class="mobile-nav-link" data-i18n="navContact">Contact Us</a>
-        </div>
-      </nav>
-
-      <div id="search-drawer" class="search-bar-drawer">
-        <div class="container">
-          <div class="search-input-wrapper">
-            <input
-              type="text"
-              id="header-search-input"
-              class="search-input-field"
-              placeholder="Search lemon & lime products..."
-              data-i18n-placeholder="searchPlaceholder"
-              aria-label="Search lemon & lime products"
-            />
-            <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear Search"><i data-icon="x" data-size="18"></i></button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main id="main-storefront">
-
-      <section id="home" class="hero-section">
-        <div class="container">
-          <div class="hero-grid">
-            <div class="hero-content">
-              <span class="hero-kicker" data-i18n="heroKicker">Authentic Sri Lankan Heritage</span>
-              <h1 class="hero-title">
-                <span data-i18n="heroTitlePrefix">Traditional Pure</span><br />
-                <span data-i18n="heroTitleAccent">Ceylon Lunu Dehi</span><br />
-                <span data-i18n="heroTitleSuffix">& Citrus Delights</span>
-              </h1>
-              <p class="hero-subtitle" data-i18n="heroSubtitle">
-                Handcrafted from sun-ripened Mahiyanganaya limes, natural sea salt, and pure Ceylon spices. Free from artificial preservatives.
-              </p>
-
+    <main>
+      <section id="home" class="hero-showcase-section" aria-label="DG PRODUCTS product showcase">
+        <div id="hero-showcase" class="hero-showcase">
+          <!-- replaced by home.js with the product line-up; this text is the fallback -->
+          <div class="container hero-showcase-inner">
+            <div class="hero-copy">
+              <span class="hero-kicker">DG PRODUCTS</span>
+              <h1 class="hero-title">Authentic Taste of Ceylon</h1>
+              <p class="hero-sub">Lunu Dehi, sambals, cinnamon tea and spices, handcrafted in Mahiyanganaya. Every product, all in one place.</p>
               <div class="hero-cta-group">
-                <a href="#shop" class="btn-primary">
-                  <span data-i18n="btnShopNow">Shop Our Lime Pickles</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </a>
-                <a href="#about" class="btn-secondary" data-i18n="btnLearnMore">
-                  Our Traditional Story
-                </a>
-              </div>
-
-              <div class="hero-trust-bar">
-                <div class="hero-trust-item">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="#40916c"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                  <span data-i18n="heroTrustSun">100% Sun-Cured</span>
-                </div>
-                <div class="hero-trust-item">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="#40916c"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                  <span data-i18n="heroTrustSpices">Pure Ceylon Spices</span>
-                </div>
-                <div class="hero-trust-item">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" color="#40916c"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  <span data-i18n="heroTrustNoChem">Zero Artificial Chemicals</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-media-wrapper">
-              <div class="hero-media-card">
-                <img
-                  src="images/product-4.jpg"
-                  alt="DG PRODUCTS Authentic Lime Harvest & Pickle Jars"
-                />
-                <div class="hero-float-badge">
-                  <div class="float-badge-icon"><i data-icon="leaf" data-size="20"></i></div>
-                  <div>
-                    <div class="float-badge-title" data-i18n="heroBadgeTitle">Authentic Mahiyanganaya Recipe</div>
-                    <div class="float-badge-desc" data-i18n="heroBadgeDesc">Aged to perfection in glass jars</div>
-                  </div>
-                </div>
+                <a href="shop.html" class="btn-primary hero-shop-btn"><span>Shop all products</span></a>
+                <a href="about.html" class="hero-ghost-btn">About Us</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="about" class="about-section">
+<section id="about" class="about-section">
         <div class="container">
           <div class="about-grid">
             <div class="about-gallery">
               <div class="about-gallery-item">
-                <img src="images/hero-limes.jpg" alt="Rich Spiced Lime Pickle in Bowl" />
+                <img data-cld="heroLimes" data-w="900" alt="Rich Spiced Lime Pickle in Bowl" />
               </div>
               <div class="about-gallery-item">
-                <img src="images/product-1.jpg" alt="DG Products jar held against greenery" />
+                <img data-cld="product1" data-w="900" alt="DG Products jar held against greenery" />
               </div>
               <div class="about-gallery-item">
-                <img src="images/product-2.jpg" alt="Traditional Lunudehi with fresh limes" />
+                <img data-cld="product2" data-w="900" alt="Traditional Lunudehi with fresh limes" />
               </div>
             </div>
 
@@ -201,417 +94,16 @@
               <p class="about-prose" data-i18n="aboutPara1">
                 DG PRODUCTS was founded in Mahiyanganaya with a simple passion: preserving the authentic heritage of traditional Ceylon Lunu Dehi (Salted Lime Pickle). We hand-select freshly harvested, thin-skinned citrus limes grown in lush tropical groves.
               </p>
-              <p class="about-prose" data-i18n="aboutPara2">
-                Every batch is prepared with ancient sun-curing wisdom, steeped in pure solar salt, chili flakes, and aromatic spices until every lime segment attains an intensely rich, tangy, and digestive flavor profile that elevates any Sri Lankan meal.
-              </p>
-
-              <div class="about-feature-list">
-                <div class="about-feature-box">
-                  <h4 data-i18n="aboutFeat1Title">Natural Solar Salt Aging</h4>
-                  <p data-i18n="aboutFeat1Desc">Slow cured under direct sunlight to unlock authentic medicinal goodness and depth.</p>
-                </div>
-                <div class="about-feature-box">
-                  <h4 data-i18n="aboutFeat2Title">No Preservatives</h4>
-                  <p data-i18n="aboutFeat2Desc">Crafted strictly with Lime, Salt, Sugar, and Chili flakes without synthetic colors or binders.</p>
-                </div>
-              </div>
-            </div>
+              <a href="about.html" class="btn-secondary about-more-link"><span data-i18n="aboutReadMore">Read Our Full Story</span> <i data-icon="arrow-right" data-size="16"></i></a>
+            
+</div>
           </div>
         </div>
       </section>
-
-      <section id="shop" class="shop-section">
-        <div class="container">
-
-          <div class="shop-header-row">
-            <div class="shop-header-info">
-              <span class="section-label" data-i18n="shopKicker">Product Catalog</span>
-              <h2 class="section-heading" data-i18n="shopTitle">Artisanal Lime & Pickle Collection</h2>
-              <p class="about-prose" data-i18n="shopSubtitle">Every product is meticulously weighed, labeled, and sealed for export-grade freshness.</p>
-            </div>
-            <div class="shop-active-meta">
-              <span id="shop-counter-text" class="tabular">Loading items...</span>
-            </div>
-          </div>
-
-          <div class="shop-layout">
-
-            <div class="shop-top-toolbar">
-              <div id="categories-bar-container">
-              </div>
-            </div>
-
-            <div id="products-showcase-grid" class="products-grid">
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <section class="bottom-showcase-section">
-        <div class="container">
-          <div class="showcase-header">
-            <span class="showcase-badge" data-i18n="showcaseKicker">Culinary Inspiration</span>
-            <h2 class="showcase-title" data-i18n="showcaseTitle">How to Enjoy Ceylon Lunu Dehi</h2>
-            <p class="showcase-subtitle" data-i18n="showcaseSubtitle">
-              The quintessential Sri Lankan condiment that turns every meal into a royal banquet.
-            </p>
-          </div>
-
-          <div class="citrus-animation-stage">
-
-            <div class="showcase-card">
-              <div class="showcase-img-box">
-                <img src="images/product-2.jpg" alt="Rice and Curry Meal Pairing" />
-              </div>
-              <h3 class="showcase-card-title" data-i18n="showcaseCard1Title">Rice & Curry Banquet</h3>
-              <p class="showcase-card-desc" data-i18n="showcaseCard1Desc">
-                A small sliver adds an explosion of tangy richness to red rice, dhal, and coconut sambol.
-              </p>
-            </div>
-
-            <div class="showcase-card featured">
-              <div class="showcase-img-box">
-                <img src="images/product-3.jpg" alt="Rich Lunu Dehi Jar and bowl" />
-              </div>
-              <h3 class="showcase-card-title" data-i18n="showcaseCard2Title">Street-Style Kottu</h3>
-              <p class="showcase-card-desc" data-i18n="showcaseCard2Desc">
-                Elevates hot roti kottu or fried rice with an aromatic citrus burst.
-              </p>
-            </div>
-
-            <div class="showcase-card">
-              <div class="showcase-img-box">
-                <img src="images/product-5.jpg" alt="Medicinal Ceylon Lime Cure" />
-              </div>
-              <h3 class="showcase-card-title" data-i18n="showcaseCard3Title">Traditional Village Medicine</h3>
-              <p class="showcase-card-desc" data-i18n="showcaseCard3Desc">
-                A timeless Ceylon home remedy for healthy digestion and revitalizing the appetite.
-              </p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="contact-section">
-        <div class="container">
-          <div class="contact-grid">
-            <div>
-              <span class="section-label" data-i18n="contactKicker">Get In Touch</span>
-              <h2 class="section-heading" data-i18n="contactTitle">Order Directly from the Producers</h2>
-              <p class="about-prose" data-i18n="contactPara">
-                We dispatch orders island-wide and cater to bulk commercial orders, restaurants, grocery stores, and Sri Lankan expatriate gifts.
-              </p>
-
-              <div style="margin-top: 24px;">
-                <a
-                  href="https://wa.me/94752264199?text=Hello%20DG%20Products!%20I%20would%20like%20to%20inquire%20about%20ordering%20Lunu%20Dehi%20from%20lenudehi.lk"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn-primary"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.06c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.04 8.04 0 0 1-1.24-4.29c0-4.47 3.64-8.11 8.12-8.11 2.17 0 4.2 1.03 5.73 2.57a8.077 8.077 0 0 1 2.39 5.74c-.01 4.47-3.65 8.1-8.11 8.1zm4.44-6.07c-.24-.12-1.44-.71-1.66-.79-.23-.08-.39-.12-.56.12-.17.24-.64.79-.79.95-.14.16-.29.18-.53.06-.24-.12-1.02-.38-1.95-1.21-.72-.64-1.2-1.43-1.34-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.29.37-.43.12-.15.16-.24.24-.4.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.16 0-.43.06-.66.31-.23.24-.88.86-.88 2.1s.9 2.43 1.02 2.6c.12.16 1.77 2.7 4.28 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.49-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28z"/>
-                  </svg>
-                  Chat with Us on WhatsApp
-                </a>
-              </div>
-            </div>
-
-            <div class="contact-card">
-              <div class="contact-item">
-                <div class="contact-icon"><i data-icon="phone" data-size="22"></i></div>
-                <div>
-                  <div class="contact-info-title" data-i18n="contactPhoneLabel">Direct Phone & WhatsApp</div>
-                  <div class="contact-info-text tabular"><a href="tel:+94752264199" class="contact-link">075 226 4199</a> / <a href="tel:+94752264199" class="contact-link">+94 75 226 4199</a></div>
-                  <div class="contact-info-sub">Available daily from 8:00 AM - 8:00 PM</div>
-                </div>
-              </div>
-
-              <div class="contact-item">
-                <div class="contact-icon"><i data-icon="mail" data-size="22"></i></div>
-                <div>
-                  <div class="contact-info-title" data-i18n="contactEmailLabel">Email Inquiries</div>
-                  <div class="contact-info-text"><a href="mailto:dgproducts.dg@gmail.com" class="contact-link">dgproducts.dg@gmail.com</a></div>
-                  <div class="contact-info-sub">Fast reply within 24 hours</div>
-                </div>
-              </div>
-
-              <div class="contact-item">
-                <div class="contact-icon"><i data-icon="map-pin" data-size="22"></i></div>
-                <div>
-                  <div class="contact-info-title" data-i18n="contactAddressLabel">Production Facility</div>
-                  <div class="contact-info-text"><a href="https://www.google.com/maps/search/?api=1&query=Galbokka+Hewanwatta+Mahiyanganaya+Sri+Lanka" target="_blank" rel="noopener noreferrer" class="contact-link">Galbokka, Hewanwatta, Mahiyanganaya</a></div>
-                  <div class="contact-info-sub">Sri Lanka &bull; Reg. No: U/1/6/රෙදි/727</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
 
-    <section id="product-detail-view" aria-label="Product Details">
-      <div class="container" id="product-detail-content">
-      </div>
-    </section>
-
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-top-grid">
-
-          <div class="footer-brand-col">
-            <a href="#home" class="brand-lockup secret-admin-trigger" title="DG Products">
-              <img
-                src="images/logo.png"
-                alt="DG Products Shield Logo"
-                class="brand-logo-img"
-              />
-              <div class="brand-text-block">
-                <span class="brand-name">DG PRODUCTS</span>
-                <span class="brand-domain-tagline">
-                  <span>lenudehi.lk</span>
-                  <span aria-hidden="true">&bull;</span>
-                  <span class="brand-tagline-badge">ekak hadaganna</span>
-                </span>
-              </div>
-            </a>
-            <p class="footer-desc" data-i18n="footerAboutText">
-              DG PRODUCTS - lenudehi.lk. Premium artisanal Ceylon Lunu Dehi and lime preserves from Mahiyanganaya.
-            </p>
-          </div>
-
-          <div>
-            <h4 class="footer-heading" data-i18n="footerLinksTitle">Quick Links</h4>
-            <ul class="footer-links-list">
-              <li><a href="#home" class="footer-link" data-i18n="navHome">Home</a></li>
-              <li><a href="#about" class="footer-link" data-i18n="navAbout">About Us</a></li>
-              <li><a href="#shop" class="footer-link" data-i18n="navShop">Shop</a></li>
-              <li><a href="#contact" class="footer-link" data-i18n="navContact">Contact Us</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="footer-heading" data-i18n="footerHoursTitle">Delivery & Hours</h4>
-            <p class="footer-desc" data-i18n="footerHoursText">
-              Monday to Sunday: 8:00 AM - 8:00 PM. Islandwide courier delivery available.
-            </p>
-          </div>
-
-          <div>
-            <h4 class="footer-heading">WhatsApp Order Hotline</h4>
-            <p class="footer-desc">Direct orders & questions:</p>
-            <p style="font-size:1.1rem; font-weight:700; color:#52b788;" class="tabular">075 226 4199</p>
-            <p style="font-size:0.8rem; color:rgba(255,255,255,0.5); margin-top:4px;">Reg. No: U/1/6/රෙදි/727</p>
-          </div>
-
-        </div>
-
-        <div class="footer-bottom-bar">
-          <p data-i18n="footerCopyright">
-            &copy; 2026 DG PRODUCTS (lenudehi.lk). Tagline: "ekak hadaganna". All rights reserved.
-          </p>
-          <span class="admin-unlock-hint secret-admin-trigger" title="Admin access (Tap 5 times)" data-i18n="footerAdminHint">
-            Admin Portal (Tap logo 5 times to unlock)
-          </span>
-        </div>
-      </div>
-    </footer>
-
-    <div id="admin-login-modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="admin-login-heading">
-      <div class="admin-login-modal">
-        <div class="admin-modal-header">
-          <h3 id="admin-login-heading" data-i18n="adminUnlockTitle">DG Products Administrator Login</h3>
-        </div>
-        <div class="admin-modal-body">
-          <div class="admin-security-note">
-            <strong>Security Notice:</strong> Client-side password protection is implemented for store owner operational convenience, not cryptographic server security.
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="admin-password-input">Admin Password</label>
-            <input
-              type="password"
-              id="admin-password-input"
-              class="form-control"
-              placeholder="Enter admin password..."
-              data-i18n-placeholder="adminPassPlaceholder"
-              autocomplete="current-password"
-            />
-          </div>
-          <div style="display:flex; justify-content:flex-end; gap:10px;">
-            <button id="admin-login-cancel-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
-            <button id="admin-login-submit-btn" class="btn-primary" data-i18n="adminBtnLogin">Unlock Dashboard</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="admin-dashboard-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="admin-dashboard-heading">
-      <div class="admin-dashboard-modal">
-        <div class="dashboard-header">
-          <div class="dashboard-title-box">
-            <span class="dashboard-title-icon"><i data-icon="settings" data-size="24"></i></span>
-            <h3 id="admin-dashboard-heading" data-i18n="adminDashboardTitle">DG Products Catalog Manager</h3>
-          </div>
-          <div class="dashboard-toolbar">
-            <button id="admin-new-product-btn" class="btn-secondary" style="color:#ffffff; border-color:rgba(255,255,255,0.4); background:transparent;">
-              <i data-icon="plus" data-size="16"></i> Add Product
-            </button>
-            <button id="admin-close-dashboard-btn" class="btn-secondary" style="color:#ffffff; border-color:rgba(255,255,255,0.4); background:transparent;">
-              <i data-icon="x" data-size="16"></i> Close
-            </button>
-          </div>
-        </div>
-
-        <div class="dashboard-tabs">
-          <button class="dashboard-tab-btn active" data-tab="list" data-i18n="adminTabProducts">Inventory List</button>
-          <button class="dashboard-tab-btn" data-tab="form" id="admin-form-tab-btn" data-i18n="adminTabAdd">Add / Edit Product</button>
-          <button class="dashboard-tab-btn" data-tab="reviews" id="admin-reviews-tab-btn">
-            <span data-i18n="adminTabReviews">Reviews &amp; Moderation</span>
-            <span id="admin-pending-review-badge" class="admin-badge-count" style="display:none;">0</span>
-          </button>
-        </div>
-
-        <div class="dashboard-content-area">
-
-          <div id="admin-tab-list-content">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-              <p style="font-size:0.88rem; color:var(--color-text-muted);">
-                Changes made here are instantly saved to browser LocalStorage and update the live storefront.
-              </p>
-              <button id="admin-reset-catalog-btn" class="btn-secondary" style="font-size:0.8rem; padding:8px 12px;" data-i18n="adminBtnReset">
-                Restore Factory Catalog
-              </button>
-            </div>
-
-            <div style="overflow-x:auto;">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th data-i18n="adminColImage">Photo</th>
-                    <th data-i18n="adminColName">Product Name</th>
-                    <th data-i18n="adminColCategory">Category</th>
-                    <th data-i18n="adminColWeight">Weight</th>
-                    <th data-i18n="adminColPrice">Price (LKR)</th>
-                    <th data-i18n="adminColActions">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="admin-products-table-body">
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div id="admin-tab-form-content" style="display:none;">
-            <h4 id="admin-form-title" style="font-size:1.1rem; font-weight:700; margin-bottom:20px; color:var(--color-brand-deep);">
-              Add New Product
-            </h4>
-
-            <form id="admin-product-edit-form">
-              <input type="hidden" id="form-prod-id" />
-
-              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" for="form-prod-name-en">Product Name (English) *</label>
-                  <input type="text" id="form-prod-name-en" class="form-control" required placeholder="e.g. Traditional Ceylon Lunu Dehi (250g Jar)" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-name-si">Product Name (Sinhala)</label>
-                  <input type="text" id="form-prod-name-si" class="form-control" placeholder="e.g. සාම්ප්‍රදායික ගැමි ලුණු දෙහි (ග්‍රෑම් 250)" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-name-ta">Product Name (Tamil)</label>
-                  <input type="text" id="form-prod-name-ta" class="form-control" placeholder="e.g. பாரம்பரிய இலங்கை எலுமிச்சை ஊறுகாய்" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-price">Price in LKR (Rs.) *</label>
-                  <input type="number" id="form-prod-price" class="form-control" required min="1" step="10" placeholder="e.g. 650" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-weight">Weight Specification *</label>
-                  <input type="text" id="form-prod-weight" class="form-control" required placeholder="e.g. 250g, 500g, 1kg" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-category">Category *</label>
-                  <select id="form-prod-category" class="form-control">
-                    <option value="traditional">Traditional Lunu Dehi</option>
-                    <option value="spiced">Spiced & Seasoned Pickle</option>
-                    <option value="special">Value Packs & Gift Jars</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-image">Image File / URL</label>
-                  <input type="text" id="form-prod-image" class="form-control" placeholder="images/product-1.jpg or URL" />
-                </div>
-
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" for="form-prod-desc-en">Description (English)</label>
-                  <textarea id="form-prod-desc-en" class="form-control" rows="3" placeholder="Taste profile, sun-curing details, food pairings..."></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-desc-si">Description (Sinhala)</label>
-                  <textarea id="form-prod-desc-si" class="form-control" rows="2" placeholder="සිංහල විස්තරය..."></textarea>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="form-prod-desc-ta">Description (Tamil)</label>
-                  <textarea id="form-prod-desc-ta" class="form-control" rows="2" placeholder="தமிழ் விளக்கம்..."></textarea>
-                </div>
-
-                <div class="form-group" style="grid-column: span 2;">
-                  <label class="form-label" for="form-prod-addinfo-en">Additional Info & Ingredients</label>
-                  <textarea id="form-prod-addinfo-en" class="form-control" rows="2" placeholder="Registration, batch, ingredients, storage..."></textarea>
-                </div>
-              </div>
-
-              <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
-                <button type="button" id="admin-cancel-form-btn" class="btn-secondary" data-i18n="adminBtnCancel">Cancel</button>
-                <button type="submit" class="btn-primary" data-i18n="adminBtnSave">Save Product</button>
-              </div>
-            </form>
-          </div>
-
-          <div id="admin-tab-reviews-content" style="display:none;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
-              <div>
-                <h4 style="font-size:1.1rem; font-weight:700; color:var(--color-brand-deep);" data-i18n="adminTabReviews">
-                  Customer Reviews &amp; Moderation
-                </h4>
-                <p style="font-size:0.85rem; color:var(--color-text-muted); margin-top:2px;">
-                  Review customer feedback, approve genuine testimonials, or reject spam before publishing to product pages.
-                </p>
-              </div>
-
-              <div class="admin-review-filters" role="group">
-                <button class="review-filter-btn active" data-filter="all">All (<span id="count-all-reviews">0</span>)</button>
-                <button class="review-filter-btn" data-filter="pending">Pending (<span id="count-pending-reviews">0</span>)</button>
-                <button class="review-filter-btn" data-filter="approved">Approved (<span id="count-approved-reviews">0</span>)</button>
-                <button class="review-filter-btn" data-filter="rejected">Rejected (<span id="count-rejected-reviews">0</span>)</button>
-              </div>
-            </div>
-
-            <div id="admin-reviews-list-container" class="admin-reviews-list">
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div id="admin-tap-toast" class="admin-tap-counter"></div>
+    <div id="site-footer"></div>
 
     <div id="app-toast-notification" class="app-toast"></div>
-
-    <script src="./script.js"></script>
   </body>
 </html>
