@@ -20,6 +20,7 @@ function renderProductDetail(product) {
 
   const catName = getCategoryName(product.category);
 
+  const available = isProductAvailable(product);
   const waUrl = generateWhatsAppOrderUrl(product, currentDetailQuantity);
 
   const galleryImgs = product.gallery && product.gallery.length > 0
@@ -104,12 +105,13 @@ function renderProductDetail(product) {
 
         <div class="detail-price-box">
           <span class="detail-price tabular">${unitPriceFormatted}</span>
-          <span class="detail-stock-status">
+          ${available ? `<span class="detail-stock-status">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             ${getTranslation("pdpStock")}
-          </span>
+          </span>` : `<span class="detail-stock-status is-out">${icon("frown", 14)} ${getTranslation("pdpUnavailable")}</span>`}
         </div>
 
+        ${available ? `
         <div class="detail-option-group">
           <div class="detail-option-title">${getTranslation("pdpSelectWeight")}</div>
           <div>
@@ -143,6 +145,22 @@ function renderProductDetail(product) {
             ${icon("share-2", 16)} <span>${getTranslation("btnShareProduct")}</span>
           </button>
         </div>
+        ` : `
+        <div class="detail-option-group">
+          <div class="detail-option-title">${getTranslation("pdpSelectWeight")}</div>
+          <div><span class="detail-weight-pill active">${product.weight || "250g"}</span></div>
+        </div>
+        <div class="oops-card" role="status">
+          <div class="oops-face">${icon("frown", 56)}</div>
+          <div class="oops-body">
+            <h3 class="oops-title">${getTranslation("oopsTitle")}</h3>
+            <p class="oops-text">${getTranslation("oopsText")}</p>
+            <div class="oops-actions">
+              <a href="shop.html?filter=available" class="btn-primary"><span>${getTranslation("oopsBtn")}</span> ${icon("arrow-right", 16)}</a>
+              <button type="button" id="pdp-share-btn" class="btn-secondary" style="font-size:0.85rem; padding:8px 16px;">${icon("share-2", 16)} <span>${getTranslation("btnShareProduct")}</span></button>
+            </div>
+          </div>
+        </div>`}
 
         <div class="detail-sections-container">
           <div class="detail-content-card">
@@ -531,7 +549,7 @@ function updateProductMeta(product) {
       url,
       priceCurrency: "LKR",
       price: String(product.priceLkr),
-      availability: "https://schema.org/InStock"
+      availability: isProductAvailable(product) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
     }
   };
   if (stats.count > 0) {

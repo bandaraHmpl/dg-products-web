@@ -21,6 +21,7 @@ const ICON_PATHS = {
   "trash-2": "<path d=\"M3 6h18\"/> <path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\"/> <path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\"/> <line x1=\"10\" x2=\"10\" y1=\"11\" y2=\"17\"/> <line x1=\"14\" x2=\"14\" y1=\"11\" y2=\"17\"/>",
   "check": "<path d=\"M20 6 9 17l-5-5\"/>",
   "x": "<path d=\"M18 6 6 18\"/> <path d=\"m6 6 12 12\"/>",
+  "frown": "<circle cx=\"12\" cy=\"12\" r=\"10\"/> <path d=\"M16 16s-1.5-2-4-2-4 2-4 2\"/> <line x1=\"9\" x2=\"9.01\" y1=\"9\" y2=\"9\"/> <line x1=\"15\" x2=\"15.01\" y1=\"9\" y2=\"9\"/>",
   "star": "<path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\"/>",
   "arrow-right": "<path d=\"M5 12h14\"/> <path d=\"m12 5 7 7-7 7\"/>",
   "arrow-left": "<path d=\"m12 19-7-7 7-7\"/> <path d=\"M19 12H5\"/>",
@@ -32,6 +33,8 @@ const ICON_PATHS = {
   "circle-check-big": "<path d=\"M21.801 10A10 10 0 1 1 17 3.335\"/> <path d=\"m9 11 3 3L22 4\"/>",
   "info": "<circle cx=\"12\" cy=\"12\" r=\"10\"/> <path d=\"M12 16v-4\"/> <path d=\"M12 8h.01\"/>",
   "share-2": "<circle cx=\"18\" cy=\"5\" r=\"3\"/> <circle cx=\"6\" cy=\"12\" r=\"3\"/> <circle cx=\"18\" cy=\"19\" r=\"3\"/> <line x1=\"8.59\" x2=\"15.42\" y1=\"13.51\" y2=\"17.49\"/> <line x1=\"15.41\" x2=\"8.59\" y1=\"6.51\" y2=\"10.49\"/>",
+  "shopping-bag": "<path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/> <path d=\"M3 6h18\"/> <path d=\"M16 10a4 4 0 0 1-8 0\"/>",
+  "globe": "<circle cx=\"12\" cy=\"12\" r=\"10\"/> <path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\"/> <path d=\"M2 12h20\"/>",
   "file-text": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\"/> <path d=\"M14 2v4a2 2 0 0 0 2 2h4\"/> <path d=\"M10 9H8\"/> <path d=\"M16 13H8\"/> <path d=\"M16 17H8\"/>"
 };
 
@@ -180,8 +183,18 @@ if (typeof TRANSLATIONS !== "undefined" && !TRANSLATIONS[currentLanguage]) curre
 if (currentCurrency !== "LKR" && currentCurrency !== "USD") currentCurrency = "LKR";
 
 const PRODUCTS_VERSION = 3;
+/* What can be ordered today: only the Lunu Dehi range (traditional, spiced, special packs).
+   Sambals, tea and spices show as "not available" until the admin ticks "Available to order". */
+const AVAILABLE_CATEGORIES = ["traditional", "spiced", "special"];
+/* The 5 "Main products" shown on the shop tab (admin can change this per product) */
+const MAIN_PRODUCT_IDS = ["dg-001", "dg-004", "dg-003", "dg-006", "dg-002"];
+
+function isProductAvailable(p) { return !!p.available; }
+
 function normalizeProduct(p) {
   p.palette = p.palette || "lime";
+  if (p.available === undefined) p.available = AVAILABLE_CATEGORIES.includes(p.category);
+  if (p.main === undefined) p.main = MAIN_PRODUCT_IDS.includes(p.id);
   if (!p.tag) p.tag = (PRODUCT_PALETTES[p.palette] || PRODUCT_PALETTES.lime).tag;
   if (p.featured === undefined) p.featured = (p.id === "dg-001");
   return p;
@@ -332,11 +345,6 @@ function headerHtml() {
         <nav class="main-nav" aria-label="Primary Site Navigation">${links("nav-link")}</nav>
 
         <div class="header-actions">
-          <button id="header-search-toggle" class="action-btn" aria-label="Toggle Search Bar" title="Search Products">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </button>
           ${selectorPills()}
           <button id="mobile-menu-btn" class="action-btn mobile-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-drawer" title="Menu">
             <i data-icon="menu" data-size="20"></i>
@@ -347,21 +355,39 @@ function headerHtml() {
       <nav id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Mobile Navigation">
         <div class="container">
           ${links("mobile-nav-link")}
-          <div class="mobile-selectors">${selectorPills()}</div>
         </div>
       </nav>
 
-      <div id="search-drawer" class="search-bar-drawer">
-        <div class="container">
-          <div class="search-input-wrapper">
-            <input type="text" id="header-search-input" class="search-input-field"
-              placeholder="Search lemon & lime products..." data-i18n-placeholder="searchPlaceholder"
-              aria-label="Search products" />
-            <button id="search-clear-btn" class="search-clear-btn" aria-label="Clear Search"><i data-icon="x" data-size="18"></i></button>
-          </div>
+    </header>`;
+}
+
+/* Phone-only side dock: language + currency tucked on the right edge */
+function sideDockHtml() {
+  return `
+    <aside id="side-dock" class="side-dock" aria-label="Language and currency">
+      <button type="button" id="side-dock-handle" class="side-dock-handle" aria-expanded="false" aria-controls="side-dock-panel" aria-label="Language and currency">
+        ${icon("globe", 22)}
+      </button>
+      <div id="side-dock-panel" class="side-dock-panel">
+        <div class="side-dock-group" role="group" aria-label="Language">
+          <button type="button" class="side-dock-opt lang-opt-btn" data-lang="si">සිංහල</button>
+          <button type="button" class="side-dock-opt lang-opt-btn" data-lang="en">EN</button>
+          <button type="button" class="side-dock-opt lang-opt-btn" data-lang="ta">தமிழ்</button>
+        </div>
+        <div class="side-dock-group" role="group" aria-label="Currency">
+          <button type="button" class="side-dock-opt curr-opt-btn" data-curr="LKR">LKR</button>
+          <button type="button" class="side-dock-opt curr-opt-btn" data-curr="USD">USD</button>
         </div>
       </div>
-    </header>`;
+    </aside>`;
+}
+
+function setSideDock(open) {
+  const dock = document.getElementById("side-dock");
+  const btn = document.getElementById("side-dock-handle");
+  if (!dock || !btn) return;
+  dock.classList.toggle("open", open);
+  btn.setAttribute("aria-expanded", String(open));
 }
 
 function footerHtml() {
@@ -405,6 +431,7 @@ function injectLayout() {
   const f = document.getElementById("site-footer");
   if (h) h.outerHTML = headerHtml();
   if (f) f.outerHTML = footerHtml();
+  if (h && !document.getElementById("side-dock")) document.body.insertAdjacentHTML("beforeend", sideDockHtml());
 
   // highlight the current page in the menus
   const current = document.body.dataset.nav || DG.page();
@@ -431,37 +458,6 @@ function toggleMobileMenu() {
   const open = drawer.classList.toggle("open");
   btn.setAttribute("aria-expanded", String(open));
   btn.innerHTML = icon(open ? "x" : "menu", 20);
-}
-
-/* ---------- Header search ---------- */
-function bindSearch() {
-  const toggleBtn = document.getElementById("header-search-toggle");
-  const drawer = document.getElementById("search-drawer");
-  const input = document.getElementById("header-search-input");
-  const clearBtn = document.getElementById("search-clear-btn");
-  if (!input) return;
-
-  const announce = () => window.dispatchEvent(new CustomEvent("dg:search", { detail: { query: input.value } }));
-  const toShop = () => {
-    const q = input.value.trim();
-    if (q) goTo("shop.html?q=" + encodeURIComponent(q));
-  };
-
-  toggleBtn?.addEventListener("click", () => {
-    drawer.classList.toggle("open");
-    if (drawer.classList.contains("open")) input.focus();
-  });
-
-  input.addEventListener("input", announce);
-  input.addEventListener("keydown", (e) => {
-    // outside the shop page, Enter takes the visitor to the shop with the search applied
-    if (e.key === "Enter" && DG.page() !== "shop") { e.preventDefault(); toShop(); }
-  });
-  clearBtn?.addEventListener("click", () => {
-    input.value = "";
-    announce();
-    input.focus();
-  });
 }
 
 /* ---------- Secret admin: 5 taps on the logo within 3 seconds ---------- */
@@ -555,13 +551,24 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => setCurrency(btn.getAttribute("data-curr"))));
   document.getElementById("mobile-menu-btn")?.addEventListener("click", toggleMobileMenu);
   document.querySelectorAll(".secret-admin-trigger").forEach(el => el.addEventListener("click", onBrandClick));
-  bindSearch();
   bindPageTransitions();
+
+  // side dock: tap the globe to open, pick a language / currency, it folds away again
+  document.getElementById("side-dock-handle")?.addEventListener("click", () => {
+    setSideDock(!document.getElementById("side-dock").classList.contains("open"));
+  });
+  document.querySelectorAll("#side-dock .side-dock-opt").forEach(b =>
+    b.addEventListener("click", () => setTimeout(() => setSideDock(false), 350)));
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#side-dock")) setSideDock(false);
+  });
+  window.addEventListener("scroll", () => setSideDock(false), { passive: true });
+  document.getElementById("mobile-menu-btn")?.addEventListener("click", () => setSideDock(false));
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     closeMobileMenu();
-    document.getElementById("search-drawer")?.classList.remove("open");
+    setSideDock(false);
   });
 
   window.addEventListener("scroll", () => {

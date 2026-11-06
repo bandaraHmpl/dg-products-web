@@ -98,7 +98,33 @@ function initSplash() {
   setTimeout(dismiss, 2400);
 }
 
+/* Phones only: after a little scrolling, a floating "Shop" button slides up */
+function initShopFab() {
+  if (document.getElementById("shop-fab")) return;
+  const fab = document.createElement("a");
+  fab.id = "shop-fab";
+  fab.className = "shop-fab";
+  fab.href = "shop.html";
+  document.body.appendChild(fab);
+
+  const paint = () => { fab.innerHTML = `${icon("shopping-bag", 20)}<span>${getTranslation("heroShopAll", "Shop all products")}</span>`; };
+  paint();
+  window.addEventListener("dg:rerender", paint);
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const footer = document.querySelector(".site-footer");
+    const nearFooter = footer && footer.getBoundingClientRect().top < window.innerHeight - 40;
+    fab.classList.toggle("show", window.scrollY > 260 && !nearFooter);
+  };
+  window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+}
+
 DG.ready(() => {
   initSplash();
+  initShopFab();
   window.addEventListener("dg:rerender", renderHeroShowcase);
 });

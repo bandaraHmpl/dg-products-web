@@ -267,6 +267,8 @@ window.editProductInAdmin = function(id) {
   document.getElementById("form-prod-palette").value = (Array.isArray(product.colors) && product.colors.length === 4) ? "custom" : (product.palette || "lime");
   paletteFor(product).forEach((c, i) => { document.getElementById("form-prod-c" + (i + 1)).value = c; });
   document.getElementById("form-prod-featured").checked = !!product.featured;
+  document.getElementById("form-prod-available").checked = isProductAvailable(product);
+  document.getElementById("form-prod-main").checked = !!product.main;
 
   document.getElementById("admin-form-title").textContent = "Edit Product: " + product.name.en;
   switchAdminTab("form");
@@ -318,7 +320,9 @@ function handleSaveProductForm(e) {
     tag: document.getElementById("form-prod-tag").value.trim(),
     palette: document.getElementById("form-prod-palette").value,
     colors: [1, 2, 3, 4].map(i => document.getElementById("form-prod-c" + i).value),
-    featured: document.getElementById("form-prod-featured").checked
+    featured: document.getElementById("form-prod-featured").checked,
+    available: document.getElementById("form-prod-available").checked,
+    main: document.getElementById("form-prod-main").checked
   };
 
   if (existingIndex >= 0) {

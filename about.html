@@ -16,6 +16,7 @@
     <noscript><style>#page-loader, #intro-splash { display: none !important; }</style></noscript>
     <script defer src="js/data.js"></script>
     <script defer src="js/common.js"></script>
+    <script defer src="js/about.js"></script>
   </head>
   <body data-page="about">
     <div id="page-loader" aria-hidden="true">
@@ -71,49 +72,14 @@
         </div>
       </section>
 
-<section class="bottom-showcase-section">
+<section class="cert-section" aria-labelledby="cert-heading">
         <div class="container">
-          <div class="showcase-header">
-            <span class="showcase-badge" data-i18n="showcaseKicker">Culinary Inspiration</span>
-            <h2 class="showcase-title" data-i18n="showcaseTitle">How to Enjoy Ceylon Lunu Dehi</h2>
-            <p class="showcase-subtitle" data-i18n="showcaseSubtitle">
-              The quintessential Sri Lankan condiment that turns every meal into a royal banquet.
-            </p>
+          <div class="cert-header">
+            <span class="section-label" data-i18n="certKicker">Trust &amp; Quality</span>
+            <h2 class="section-heading" id="cert-heading" data-i18n="certTitle">Our Certificates</h2>
+            <p class="about-prose" data-i18n="certSubtitle">DG PRODUCTS is a registered Sri Lankan business. Tap a certificate to view it in full size.</p>
           </div>
-
-          <div class="citrus-animation-stage">
-
-            <div class="showcase-card">
-              <div class="showcase-img-box">
-                <img data-cld="product2" data-w="900" alt="Rice and Curry Meal Pairing" />
-              </div>
-              <h3 class="showcase-card-title" data-i18n="showcaseCard1Title">Rice & Curry Banquet</h3>
-              <p class="showcase-card-desc" data-i18n="showcaseCard1Desc">
-                A small sliver adds an explosion of tangy richness to red rice, dhal, and coconut sambol.
-              </p>
-            </div>
-
-            <div class="showcase-card featured">
-              <div class="showcase-img-box">
-                <img data-cld="product3" data-w="900" alt="Rich Lunu Dehi Jar and bowl" />
-              </div>
-              <h3 class="showcase-card-title" data-i18n="showcaseCard2Title">Street-Style Kottu</h3>
-              <p class="showcase-card-desc" data-i18n="showcaseCard2Desc">
-                Elevates hot roti kottu or fried rice with an aromatic citrus burst.
-              </p>
-            </div>
-
-            <div class="showcase-card">
-              <div class="showcase-img-box">
-                <img data-cld="product5" data-w="900" alt="Medicinal Ceylon Lime Cure" />
-              </div>
-              <h3 class="showcase-card-title" data-i18n="showcaseCard3Title">Traditional Village Medicine</h3>
-              <p class="showcase-card-desc" data-i18n="showcaseCard3Desc">
-                A timeless Ceylon home remedy for healthy digestion and revitalizing the appetite.
-              </p>
-            </div>
-
-          </div>
+          <div id="cert-grid" class="cert-grid"></div>
         </div>
       </section>
     </main>
